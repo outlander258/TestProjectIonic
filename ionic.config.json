@@ -1,0 +1,7 @@
+{
+  "name": "myBlankApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
