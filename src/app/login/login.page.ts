@@ -10,11 +10,21 @@ import { IonicModule } from '@ionic/angular';
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule]
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
+  username: string  | undefined;
+  password: string | undefined;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  login(){
+    console.log("Nombre de usuario : ",this.username)
+    console.log("Contraseña : ",this.password)
+    
+
+
   }
 
 }
