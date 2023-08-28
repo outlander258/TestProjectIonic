@@ -1,22 +1,33 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="ion-text-center">
   <ion-toolbar>
-    <ion-title>Login APP</ion-title>
+    <ion-img class="ion-text-center" src="../../assets/icon/Duoc.png" alt="DuocUC"></ion-img>
+
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content class="ion-padding" [fullscreen]="true">
+
   <div class="login-container">
     <ion-item>
-      <ion-label position="stacked">Username</ion-label>
-      <ion-input type="text"[(ngModel)]="username"></ion-input>
+      <ion-input type="text" [(ngModel)]="username" label="Usuario" labelPlacement="floating"></ion-input>
     </ion-item>
-
     <ion-item>
-      <ion-label position="stacked">Password</ion-label>
-      <ion-input type="password" [(ngModel)]="password"></ion-input>
+      <ion-input type="password" [(ngModel)]="password" label="Contraseña" labelPlacement="floating"></ion-input>
     </ion-item>
 
-    <ion-button expand="full" class="login-button" (click)="login()">Login</ion-button>
-    <ion-button expand="full" class="register-button">Register</ion-button>
+    <ion-col >
+      <ion-row class="ion-justify-content-center">
+        <ion-button class="login-button" (click)="login()" fill="outline">Ingresar</ion-button>
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <ion-button class="register-button" fill="outline">Registrar</ion-button>
+      </ion-row>
+      <br>
+      <ion-row class="ion-justify-content-center">
+      <ion-text> ¿No recuerdas tu contraseña? <br> Has click <a href= "https://youtu.be/dQw4w9WgXcQ?si=SDQH8UmKxEGg_gIj">aqui</a> para recuperarla </ion-text>
+      </ion-row> 
+    </ion-col>
   </div>
+
 </ion-content>
