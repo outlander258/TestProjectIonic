@@ -1,13 +1,36 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>user</ion-title>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">user</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>[NOMBRE]</ion-card-title>
+      <ion-card-subtitle>
+        BIENVENIDO
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-img src="" alt="Imagen de perfil" class="ion-text-center"></ion-img>
+
+    <ion-card-content>
+      <p>NOMBRES:</p>
+      <br>
+      <p>APELLIDOS</p>
+      <br>
+      <p>Tipo de Usuario</p>    
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-col >
+    <ion-row class="ion-justify-content-center">
+      <ion-button fill="outline">ESCANEAR</ion-button>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-button fill="outline">CERRAR SESION</ion-button>
+    </ion-row>
+  </ion-col>
+
+
 </ion-content>
