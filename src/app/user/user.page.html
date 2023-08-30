@@ -1,10 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-
+    <ion-title>Alumno</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <div class="container-fluid Imagen_fondo_alumno">
+    <img src="../../assets/icon/Alumnos.jpg" alt="Fondo Estudiantes">
+  </div>
   <ion-card>
     <ion-card-header>
       <ion-card-title>[NOMBRE]</ion-card-title>
@@ -12,8 +15,7 @@
         BIENVENIDO
       </ion-card-subtitle>
     </ion-card-header>
-    <ion-img src="" alt="Imagen de perfil" class="ion-text-center"></ion-img>
-
+      <ion-img src="../../assets/icon/Perfil usuario alumno.jpg" alt="Imagen de perfil alumno" class="ion-text-center imagen_perfil_alumno"></ion-img>
     <ion-card-content>
       <p>NOMBRES:</p>
       <br>
@@ -25,7 +27,12 @@
   
   <ion-col >
     <ion-row class="ion-justify-content-center">
-      <ion-button fill="outline">ESCANEAR</ion-button>
+      <ion-button fill="outline">
+        <span style="margin-right: 5px;">
+          ESCANEAR QR 
+        </span>
+        <ion-icon name="camera-sharp"></ion-icon>  
+      </ion-button>
     </ion-row>
     <ion-row class="ion-justify-content-center">
       <ion-button fill="outline">CERRAR SESION</ion-button>
