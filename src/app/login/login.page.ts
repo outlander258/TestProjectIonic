@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { usuariosValidos, Usuario } from './usuarios-validos'; // Importa desde el nuevo archivo
 import { ModelDataBase } from '../modelo/ModelDataBase';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -27,7 +27,7 @@ export class LoginPage {
 
 
 
-  constructor() { }
+  constructor(private router: Router) {}
 
   ngOnInit() {
   }
@@ -40,11 +40,27 @@ export class LoginPage {
     if (usuarioEncontrado) {
       // Iniciar sesión exitosa
       console.log('Inicio de sesión exitoso');
+
+      if(usuarioEncontrado.type==='ALUMNO'){
+        this.router.navigate(['/user']);
+
+
+      } else if(usuarioEncontrado.type==='DOCENTE'){
+        this.router.navigate(['/docente']);
+      }
+
     } else {
       // Credenciales inválidas
       console.log('Credenciales inválidas');
     }
   }
+
+recuperarContrasena(){
+this.router.navigate(['/password']);
+
+
+}
+
 }
 
 

@@ -23,17 +23,14 @@
         <ion-col >
           <ion-row class="ion-justify-content-center">
             <ion-button class="login-button" (click)="login()" fill="outline">Ingresar</ion-button>
-          </ion-row>
-          <ion-row class="ion-justify-content-center">
-            <ion-button class="register-button" fill="outline">Registrar</ion-button>
-          </ion-row>     
+          </ion-row>  
         </ion-col>
       </div>
     </ion-card>
   
 
-  <ion-row class="ion-justify-content-center">
-    <ion-text> ¿No recuerdas tu contraseña? <br><br> Has click <a href= "https://youtu.be/dQw4w9WgXcQ?si=SDQH8UmKxEGg_gIj">aqui</a> para recuperarla </ion-text>
-  </ion-row> 
+    <ion-row class="ion-justify-content-center">
+      <ion-text> ¿No recuerdas tu contraseña? <br><br> Has click <a (click)="recuperarContrasena()">aqui</a> para recuperarla </ion-text>
+    </ion-row>
 
 </ion-content>
