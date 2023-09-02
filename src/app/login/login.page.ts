@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ModelDataBase } from '../modelo/ModelDataBase';
 import { Router } from '@angular/router';
+import type { Animation } from '@ionic/angular';
+import { AnimationController, IonCard } from '@ionic/angular';
 
 
 @Component({
@@ -14,6 +16,7 @@ import { Router } from '@angular/router';
   imports: [IonicModule, CommonModule, FormsModule]
 })
 export class LoginPage {
+  @ViewChild('card', {read: ElementRef}) card!: ElementRef;
   username: string  | undefined;
   password: string | undefined;
 
@@ -24,10 +27,37 @@ export class LoginPage {
     new ModelDataBase('Danilo','Jara','djara@gmail.com','ALUMNO','daniloj123','dinoneednumpy')
 
   ];
+  constructor(private router: Router,private animationCtrl: AnimationController) {}
+//zona de animacion
+
+private animation!: Animation;
+
+ngAfterViewInit() {
+
+  this.animation = this.animationCtrl
+    .create()
+    .addElement(this.card.nativeElement)
+    .duration(300)
+    .iterations(1)
+    .fromTo('transform', 'translateX(0px)', 'translateX(-200px)')
+    .fromTo('opacity', '1', '0');
+
+
+}
+async ionViewWillLeave() {
+ 
+
+  await this.animation.play();
+  await this.animation.stop();
+
+
+}
 
 
 
-  constructor(private router: Router) {}
+//Fin zona animacion
+
+  
 
   ngOnInit() {
   }
@@ -42,6 +72,7 @@ export class LoginPage {
       console.log('Inicio de sesión exitoso');
 
       if(usuarioEncontrado.type==='ALUMNO'){
+        this.ionViewWillLeave();
         this.router.navigate(['/user']);
 
 
