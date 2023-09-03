@@ -8,3 +8,25 @@
     margin-right: 50px;
     width: 200px;
 }
+
+.fondo-profe{
+    background: #0575E6;  
+    background: -webkit-linear-gradient(to right, #021B79, #0575E6);  
+    background: linear-gradient(to right, #021B79, #0575E6); 
+    padding-bottom: 3rem;
+    padding-top: 3rem;
+}
+
+
+.columna-botones{
+    background: #0575E6;  
+    background: -webkit-linear-gradient(to right, #021B79, #0575E6);  
+    background: linear-gradient(to right, #021B79, #0575E6);
+    padding-top: 3rem; 
+    padding-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}

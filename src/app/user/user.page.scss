@@ -8,3 +8,16 @@
     margin-right: 2rem;
     width: 200px;
 }
+
+.columna-botones{
+    background: #0575E6;  
+    background: -webkit-linear-gradient(to right, #021B79, #0575E6);  
+    background: linear-gradient(to right, #021B79, #0575E6);
+    padding-top: 3rem; 
+    padding-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}

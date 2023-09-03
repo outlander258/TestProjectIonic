@@ -8,6 +8,7 @@
   <div class="container-fluid Imagen_fondo_docente">
     <img src="../../assets/img/Profesor(a).jpg" alt="Fondo docentes">
   </div>
+<<<<<<< HEAD
   <ion-card *ngIf="usuarioActual">
     <ion-card-header>
       <ion-card-title>{{ usuarioActual.name }}</ion-card-title>
@@ -24,18 +25,39 @@
       <p>Tipo de Usuario: {{ usuarioActual.type }}</p>  
     </ion-card-content>
   </ion-card>
+=======
+
+  <ion-col class="columna-card">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>[NOMBRE]</ion-card-title>
+        <ion-card-subtitle>
+          BIENVENIDO
+        </ion-card-subtitle>
+      </ion-card-header>
+        <ion-img src="../../assets/img/Perfil usuario profesor 2.jpg" alt="Imagen de perfil docente" class="ion-text-center imagen_perfil_docente"></ion-img>
+      <ion-card-content>
+        <p>Nombres:</p>
+        <br>
+        <p>Apellidos:</p>
+        <br>
+        <p>Tipo de Usuario:</p>    
+      </ion-card-content>
+    </ion-card>
+  </ion-col>
+>>>>>>> vistas
   
-  <ion-col >
-    <ion-row class="ion-justify-content-center">
-      <ion-button fill="outline">
+  <ion-col class="columna-botones" >
+    <ion-row>
+      <ion-button color="light" class="Generar-QR" fill="outline">
         <span style="margin-right: 5px;">
           GENERAR QR
         </span>   
         <ion-icon name="qr-code-sharp"></ion-icon>
       </ion-button>
     </ion-row>
-    <ion-row class="ion-justify-content-center">
-      <ion-button fill="outline">CERRAR SESIÓN</ion-button>
+    <ion-row >
+      <ion-button color="light" class="Cerrar-Sesion" fill="outline">CERRAR SESIÓN</ion-button>
     </ion-row>
   </ion-col>
 
