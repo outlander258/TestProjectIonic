@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { usuariosValidos, Usuario } from './usuarios-validos'; // Importa desde el nuevo archivo
+import { ActivatedRoute } from '@angular/router';
+import { ModelDataBase } from '../modelo/ModelDataBase';
+import { Router } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-user',
@@ -12,9 +16,27 @@ import { usuariosValidos, Usuario } from './usuarios-validos'; // Importa desde 
   imports: [IonicModule, CommonModule, FormsModule]
 })
 export class UserPage implements OnInit {
-  usuariosValidos: Usuario[] = usuariosValidos; // Usa el arreglo importado
+  usuarioActual: ModelDataBase | null = null;
+  sesionUser: ModelDataBase[] = [];
 
-  constructor() {}
+  constructor(private route: ActivatedRoute) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      const nombre = params['name'];
+      const apellido = params['last_name'];
+      const tipo = params['type'];
+      const email = params['email'];
+      const username = params['username'];
+      const password = params['password'];
+
+      this.usuarioActual = new ModelDataBase(nombre, apellido, email, tipo, username, password);
+    });
+  }
+
+  cerrarSession(){
+
+
+  }
 }
+
