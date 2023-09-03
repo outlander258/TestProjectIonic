@@ -1,11 +1,31 @@
 .Logo-Duoc{
-    margin-top: 3rem;
+    margin-top: 2rem;
     margin-bottom: 3rem;
 }
 
-.Fondo-Login{
-    background: #1488CC;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #2B32B2, #1488CC);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #2B32B2, #1488CC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+.fondito{
+    background: #0575E6;  
+    background: -webkit-linear-gradient(to right, #021B79, #0575E6);  
+    background: linear-gradient(to right, #021B79, #0575E6); 
+    padding-bottom: 3rem;
+    padding-top: 3rem;
 }
+
+.texto-recuperar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: rgb(242, 243, 245);
+}
+
+.fondodemierda{
+    background: #0575E6;  
+    background: -webkit-linear-gradient(to right, #021B79, #0575E6);  
+    background: linear-gradient(to right, #021B79, #0575E6); 
+    padding-bottom: 30%;
+    
+}
+
+
+

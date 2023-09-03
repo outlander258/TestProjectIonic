@@ -5,13 +5,13 @@
 </ion-header>
 
 
-<ion-content class="ion-padding" [fullscreen]="true">
+<ion-content  class="ion-padding" [fullscreen]="true">
   <div class="container-fluid">
     <ion-img class="ion-text-center Logo-Duoc" src="../../assets/img/Duoc.png" alt="DuocUC"></ion-img>
   </div>
 
-  
-    <ion-card #card>
+  <div class="fondito">
+    <ion-card #card >
       <div class="login-container">
         <ion-item>
           <ion-input type="text" [(ngModel)]="username" label="Usuario" labelPlacement="floating"></ion-input>
@@ -27,10 +27,14 @@
         </ion-col>
       </div>
     </ion-card>
-  
+  </div> 
 
-    <ion-row class="ion-justify-content-center">
-      <ion-text> ¿No recuerdas tu contraseña? <br><br> Has click <a (click)="recuperarContrasena()">aqui</a> para recuperarla </ion-text>
-    </ion-row>
+  <div class="container-fliud fondodemierda">
+    <ion-row class="texto-recuperar">
+      <ion-text color="primary-contrast"> ¿No recuerdas tu contraseña? <br><br> Has click <a (click)="recuperarContrasena()">aqui</a> para recuperarla </ion-text>
+    </ion-row> 
+  </div>
+
+  
 
 </ion-content>
