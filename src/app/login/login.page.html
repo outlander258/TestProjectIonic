@@ -12,7 +12,7 @@
 
   <div class="fondito">
     <ion-card #card >
-      <div class="login-container">
+      <div class="container-fliud">
         <ion-item>
           <ion-input type="text" [(ngModel)]="username" label="Usuario" labelPlacement="floating"></ion-input>
         </ion-item>
@@ -27,13 +27,12 @@
         </ion-col>
       </div>
     </ion-card>
+    <div class="container-fliud fondodemierda">
+      <ion-row class="texto-recuperar">
+        <ion-text color="primary-contrast"> ¿No recuerdas tu contraseña? <br><br> Has click <a class="aqui" (click)="recuperarContrasena()">aquí</a> para recuperarla </ion-text>
+      </ion-row> 
+    </div>
   </div> 
-
-  <div class="container-fliud fondodemierda">
-    <ion-row class="texto-recuperar">
-      <ion-text color="primary-contrast"> ¿No recuerdas tu contraseña? <br><br> Has click <a (click)="recuperarContrasena()">aqui</a> para recuperarla </ion-text>
-    </ion-row> 
-  </div>
 
   
 
