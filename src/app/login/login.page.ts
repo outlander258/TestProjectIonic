@@ -22,6 +22,7 @@ export class LoginPage {
   password: string | undefined;
   usuarioActual: ModelDataBase | null = null;
   esDocente = false;
+  isToastOpen = false;
 
 
   sesionUser : ModelDataBase [] =[
@@ -29,7 +30,7 @@ export class LoginPage {
     new ModelDataBase('Leopoldo','Ramirez','lramirez@gmail.com','DOCENTE','leopoldor123','ramirezl123'),
     new ModelDataBase('Danilo','Jara','djara@gmail.com','ALUMNO','daniloj123','dinoneednumpy'),
     new ModelDataBase('Jean','Guital','jguital@gmail.com','ALUMNO','jeang123','sutrofromvalpo'),
-    new ModelDataBase('Gonzalo','Ulloa','gulloa@gmial.com','ALUMNO','gonzalou123','simphentai123'),
+    new ModelDataBase('Gonzalo','Ulloa','gulloa@gmail.com','ALUMNO','gonzalou123','simphentai123'),
 
 
 
@@ -64,7 +65,9 @@ async ionViewWillLeave() {
 
 //Fin zona animacion
 
-  
+setOpen(isOpen: boolean) {
+  this.isToastOpen = isOpen;
+}
 
   ngOnInit() {
   }
@@ -77,6 +80,7 @@ async ionViewWillLeave() {
     if (usuarioEncontrado) {
       // Iniciar sesión exitosa
       console.log('Inicio de sesión exitoso');
+      this.ionViewWillLeave();
     
       if (usuarioEncontrado.type === 'ALUMNO') {
         this.router.navigate(['/user'], {
@@ -100,6 +104,7 @@ async ionViewWillLeave() {
     } else {
       // Credenciales inválidas
       console.log('Credenciales inválidas');
+      this.setOpen(true);
     }
   }
 recuperarContrasena(){
