@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
+
+
 @Component({
   selector: 'app-password',
   templateUrl: './password.page.html',
@@ -11,10 +13,21 @@ import { IonicModule } from '@ionic/angular';
   imports: [IonicModule, CommonModule, FormsModule]
 })
 export class PasswordPage implements OnInit {
+  isAlertOpen = false;
+  public alertButtons = ['OK'];
+
 
   constructor() { }
 
   ngOnInit() {
+
+
+  }
+  //boton de alerta
+
+  setOpen(isOpen: boolean) {
+    console.log('setOpen', isOpen);
+    this.isAlertOpen = isOpen;
   }
 
 }
