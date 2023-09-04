@@ -5,19 +5,19 @@
 </ion-header>
 
 
-<ion-content  class="ion-padding" [fullscreen]="true" #card>
+<ion-content  class="ion-padding" [fullscreen]="true" >
   <div class="container-fluid">
     <ion-img class="ion-text-center Logo-Duoc" src="../../assets/img/Duoc.png" alt="DuocUC"></ion-img>
   </div>
 
   <div class="fondito">
-    <ion-card >
+    <ion-card #card>
       <div class="container-fliud">
         <ion-item>
-          <ion-input type="text" [(ngModel)]="username" label="Usuario" labelPlacement="floating"></ion-input>
+          <ion-input type="text" [(ngModel)]="username" label="Usuario" labelPlacement="floating" #usuario></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input type="password" [(ngModel)]="password" label="Contraseña" labelPlacement="floating"></ion-input>
+          <ion-input type="password" [(ngModel)]="password" label="Contraseña" labelPlacement="floating" #clave></ion-input>
         </ion-item>
 
         <ion-col >
