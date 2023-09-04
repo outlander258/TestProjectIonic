@@ -23,7 +23,9 @@ export class LoginPage {
   password: string | undefined;
   usuarioActual: ModelDataBase | null = null;
   esDocente = false;
- 
+
+  isToastOpen = false;
+
 
 
   sesionUser : ModelDataBase [] =[
@@ -34,6 +36,7 @@ export class LoginPage {
     new ModelDataBase('Gonzalo','Ulloa','gulloa@gmail.com','ALUMNO','gonzalou123','simphentai123'),
     new ModelDataBase('Eduardo','Rojas','erojas@gmail.com','DOCENTE','eduardor123','comunista123'),
     new ModelDataBase('Hernan','Saavedra','hsaavedra@gmail.com','DOCENTE','hernans123','saavedrah123')
+
 
 
 
@@ -72,6 +75,7 @@ async ionViewWillLeave() {
 
 //Fin zona animacion
 
+
 async mostrarAlertaCredencialesInvalidas() {
   const alert = await this.alertController.create({
     header: 'Credenciales inválidas, campos vacios o incompletos',
@@ -84,6 +88,10 @@ async mostrarAlertaCredencialesInvalidas() {
 
   
 
+setOpen(isOpen: boolean) {
+  this.isToastOpen = isOpen;
+
+
   ngOnInit() {
   }
 
@@ -95,6 +103,7 @@ async mostrarAlertaCredencialesInvalidas() {
   
     if (usuarioEncontrado) {
       console.log('Inicio de sesión exitoso');
+      this.ionViewWillLeave();
     
       if (usuarioEncontrado.type === 'ALUMNO') {
         this.router.navigate(['/user'], {
@@ -115,7 +124,12 @@ async mostrarAlertaCredencialesInvalidas() {
       }
     } else {
       // Credenciales inválidas
+
       this.mostrarAlertaCredencialesInvalidas();
+
+      console.log('Credenciales inválidas');
+      this.setOpen(true);
+
     }
   }
 recuperarContrasena(){

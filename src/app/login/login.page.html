@@ -5,13 +5,13 @@
 </ion-header>
 
 
-<ion-content  class="ion-padding" [fullscreen]="true">
+<ion-content  class="ion-padding" [fullscreen]="true" #card>
   <div class="container-fluid">
     <ion-img class="ion-text-center Logo-Duoc" src="../../assets/img/Duoc.png" alt="DuocUC"></ion-img>
   </div>
 
   <div class="fondito">
-    <ion-card #card >
+    <ion-card >
       <div class="container-fliud">
         <ion-item>
           <ion-input type="text" [(ngModel)]="username" label="Usuario" labelPlacement="floating"></ion-input>
@@ -33,7 +33,13 @@
       </ion-row> 
     </div>
   </div> 
-
+  <ion-toast
+    [isOpen]="isToastOpen"
+    message="Usuario o contraseña incorrectos"
+    position="bottom"
+    [duration]="3000"
+    (didDismiss)="setOpen(false)"
+  ></ion-toast>
   
 
 </ion-content>
