@@ -78,19 +78,13 @@ async ionViewWillLeave() {
 
 async mostrarAlertaCredencialesInvalidas() {
   const alert = await this.alertController.create({
-    header: 'Credenciales inválidas, campos vacios o incompletos',
+    header: 'Credenciales inválidas',
     message: 'Por favor, verifica tus credenciales e intenta nuevamente.',
     buttons: ['OK']
   });
 
   await alert.present();
 }
-
-  
-
-setOpen(isOpen: boolean) {
-  this.isToastOpen = isOpen;
-
 
   ngOnInit() {
   }
@@ -128,7 +122,7 @@ setOpen(isOpen: boolean) {
       this.mostrarAlertaCredencialesInvalidas();
 
       console.log('Credenciales inválidas');
-      this.setOpen(true);
+
 
     }
   }
