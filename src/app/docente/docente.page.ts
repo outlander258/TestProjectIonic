@@ -25,9 +25,9 @@ export class DocentePage implements OnInit {
   sesionUser: ModelDataBase[] = [];
 
 
-  constructor(private router: Router,private route: ActivatedRoute) {}
 
   constructor(private router: Router,private route: ActivatedRoute,private animationCtrl: AnimationController) {}
+
 //zona de animacion
 private animation!: Animation;
 
@@ -36,12 +36,10 @@ ngAfterViewInit() {
   this.animation = this.animationCtrl
     .create()
     .addElement(this.card.nativeElement)
-    .duration(300)
+    .duration(500)
     .iterations(1)
     .fromTo('transform', 'translateX(200px)', 'translateX(0)')
     .fromTo('opacity', '1', '0');
-
-
 }
 
 async ionViewWillEnter() {
