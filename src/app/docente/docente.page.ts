@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ModelDataBase } from '../modelo/ModelDataBase';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-docente',
@@ -16,7 +18,7 @@ export class DocentePage implements OnInit {
   usuarioActual: ModelDataBase | null = null;
   sesionUser: ModelDataBase[] = [];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private router: Router,private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -31,4 +33,9 @@ export class DocentePage implements OnInit {
     });
   }
 
+  cerrarSession() {
+    this.router.navigate(['/login']);
+  
+  }
+    
 }

@@ -19,7 +19,7 @@ export class UserPage implements OnInit {
   usuarioActual: ModelDataBase | null = null;
   sesionUser: ModelDataBase[] = [];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private router: Router,private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -34,9 +34,9 @@ export class UserPage implements OnInit {
     });
   }
 
-  cerrarSession(){
-
-
+  cerrarSession() {
+    this.router.navigate(['/login']);
+  
   }
 }
 
