@@ -4,8 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ModelDataBase } from '../modelo/ModelDataBase';
 import { ActivatedRoute } from '@angular/router';
+
+import { Router } from '@angular/router';
+
 import type { Animation } from '@ionic/angular';
 import { AnimationController, IonCard } from '@ionic/angular';
+
 
 
 @Component({
@@ -20,8 +24,9 @@ export class DocentePage implements OnInit {
   usuarioActual: ModelDataBase | null = null;
   sesionUser: ModelDataBase[] = [];
 
-  constructor(private route: ActivatedRoute,private animationCtrl: AnimationController) {}
 
+
+  constructor(private router: Router,private route: ActivatedRoute,private animationCtrl: AnimationController) {}
 
 //zona de animacion
 private animation!: Animation;
@@ -42,6 +47,7 @@ async ionViewWillEnter() {
   await this.animation.stop();
 }
 
+
 //fin animacion
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -56,4 +62,9 @@ async ionViewWillEnter() {
     });
   }
 
+  cerrarSession() {
+    this.router.navigate(['/login']);
+  
+  }
+    
 }

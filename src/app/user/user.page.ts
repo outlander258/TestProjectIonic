@@ -21,7 +21,8 @@ export class UserPage implements OnInit {
   usuarioActual: ModelDataBase | null = null;
   sesionUser: ModelDataBase[] = [];
 
-  constructor(private route: ActivatedRoute,private animationCtrl: AnimationController) {}
+
+  constructor(private router: Router,private route: ActivatedRoute,private animationCtrl: AnimationController) {}
 //zona de animacion
 private animation!: Animation;
 
@@ -43,6 +44,7 @@ async ionViewWillEnter() {
   await this.animation.stop();
 }
 
+
 //fin animacion
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -57,9 +59,9 @@ async ionViewWillEnter() {
     });
   }
 
-  cerrarSession(){
-
-
+  cerrarSession() {
+    this.router.navigate(['/login']);
+  
   }
 }
 
