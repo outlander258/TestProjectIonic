@@ -1,16 +1,16 @@
 <ion-header [translucent]="true" class="ion-text-center">
   <ion-toolbar>
-    <ion-img class="ion-text-center logo-ATP" src="../../assets/img/logo ATP v1.png" alt="Logo ATP"></ion-img>
+    <ion-img class="ion-text-center logo-ATP" src="../../assets/img/DuocATP oscuro recortado.png" alt="Logo ATP"></ion-img>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" #card>
+<ion-content [fullscreen]="true" >
   <div class="container-fluid Imagen_fondo_docente">
     <img src="../../assets/img/Profesor(a).jpg" alt="Fondo docentes">
   </div>
 
   <ion-col class="columna-card">
-    <ion-card *ngIf="usuarioActual">
+    <ion-card *ngIf="usuarioActual" #card>
       <ion-card-header>
         <ion-card-title>{{ usuarioActual.name }}</ion-card-title>
         <ion-card-subtitle>

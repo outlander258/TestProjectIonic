@@ -38,8 +38,7 @@ ngAfterViewInit() {
     .addElement(this.card.nativeElement)
     .duration(500)
     .iterations(1)
-    .fromTo('transform', 'translateX(200px)', 'translateX(0)')
-    .fromTo('opacity', '1', '0');
+    .fromTo('opacity', '0', '1');
 }
 
 async ionViewWillEnter() {
