@@ -10,6 +10,7 @@ import { AnimationController, IonCard } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -23,8 +24,10 @@ export class LoginPage {
   password: string | undefined;
   usuarioActual: ModelDataBase | null = null;
   esDocente = false;
+  // inicializando los datos que va retornar la conexion con la base de datos.
 
-  isToastOpen = false;
+
+
 
 
 
@@ -78,7 +81,7 @@ async ionViewWillLeave() {
 
 async mostrarAlertaCredencialesInvalidas() {
   const alert = await this.alertController.create({
-    header: 'Credenciales inválidas, campos vacios o incompletos',
+    header: 'Credenciales inválidas',
     message: 'Por favor, verifica tus credenciales e intenta nuevamente.',
     buttons: ['OK']
   });
@@ -88,8 +91,6 @@ async mostrarAlertaCredencialesInvalidas() {
 
   
 
-setOpen(isOpen: boolean) {
-  this.isToastOpen = isOpen;
 
 
   ngOnInit() {
@@ -127,8 +128,7 @@ setOpen(isOpen: boolean) {
 
       this.mostrarAlertaCredencialesInvalidas();
 
-      console.log('Credenciales inválidas');
-      this.setOpen(true);
+
 
     }
   }
