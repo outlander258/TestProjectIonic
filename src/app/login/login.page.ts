@@ -4,14 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ModelDataBase } from '../modelo/ModelDataBase';
 import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import type { Animation } from '@ionic/angular';
 import { AnimationController, IonCard } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
-import { ServiciosService } from '../service/servicios.service';
-import { async, firstValueFrom, lastValueFrom } from 'rxjs';
-
-
+import { last, lastValueFrom } from 'rxjs';
+import { ServiciosService } from '../service/servicios.service'; 
 
 
 @Component({
@@ -22,66 +20,63 @@ import { async, firstValueFrom, lastValueFrom } from 'rxjs';
   imports: [IonicModule, CommonModule, FormsModule]
 })
 export class LoginPage {
-  @ViewChild('card', { read: ElementRef }) card!: ElementRef;
-  username: string | undefined;
+  @ViewChild('card', {read: ElementRef}) card!: ElementRef;
+  username: string  | undefined;
   password: string | undefined;
   usuarioActual: ModelDataBase | null = null;
   esDocente = false;
-  // inicializando los datos que va retornar la conexion con la base de datos.
+
+  isToastOpen = false;
 
 
 
-
-
-
-  sesionUser: ModelDataBase[] = [
-    new ModelDataBase('Carlos', 'Valverde', 'cvalverde@gmail.com', 'DOCENTE', 'carlosv123', 'valverdec123'),
-    new ModelDataBase('Leopoldo', 'Ramirez', 'lramirez@gmail.com', 'DOCENTE', 'leopoldor123', 'ramirezl123'),
-    new ModelDataBase('Danilo', 'Jara', 'djara@gmail.com', 'ALUMNO', 'daniloj123', 'dinoneednumpy'),
-    new ModelDataBase('Jean', 'Guital', 'jguital@gmail.com', 'ALUMNO', 'jeang123', 'sutrofromvalpo'),
-    new ModelDataBase('Gonzalo', 'Ulloa', 'gulloa@gmail.com', 'ALUMNO', 'gonzalou123', 'simphentai123'),
-    new ModelDataBase('Eduardo', 'Rojas', 'erojas@gmail.com', 'DOCENTE', 'eduardor123', 'comunista123'),
-    new ModelDataBase('Hernan', 'Saavedra', 'hsaavedra@gmail.com', 'DOCENTE', 'hernans123', 'saavedrah123')
+  sesionUser : ModelDataBase [] =[
+    new ModelDataBase('Carlos','Valverde','cvalverde@gmail.com','DOCENTE','carlosv123','valverdec123'),
+    new ModelDataBase('Leopoldo','Ramirez','lramirez@gmail.com','DOCENTE','leopoldor123','ramirezl123'),
+    new ModelDataBase('Danilo','Jara','djara@gmail.com','ALUMNO','daniloj123','dinoneednumpy'),
+    new ModelDataBase('Jean','Guital','jguital@gmail.com','ALUMNO','jeang123','sutrofromvalpo'),
+    new ModelDataBase('Gonzalo','Ulloa','gulloa@gmail.com','ALUMNO','gonzalou123','simphentai123'),
+    new ModelDataBase('Eduardo','Rojas','erojas@gmail.com','DOCENTE','eduardor123','comunista123'),
+    new ModelDataBase('Hernan','Saavedra','hsaavedra@gmail.com','DOCENTE','hernans123','saavedrah123')
 
 
 
 
   ];
-  constructor(private router: Router, private route: ActivatedRoute, private animationCtrl: AnimationController, private alertController: AlertController, private servicio: ServiciosService) {
-    this.username = '';
+  constructor(private router: Router,private route: ActivatedRoute,private animationCtrl: AnimationController, private alertController: AlertController, private servicio: ServiciosService) {
+    this.username = ''; 
     this.password = '';
     this.usuarioActual = new ModelDataBase('', '', '', '', '', '');
   }
-  //zona de animacion
+//zona de animacion
 
-  private animation!: Animation;
+private animation!: Animation;
 
-  ngAfterViewInit() {
+ngAfterViewInit() {
 
-    this.animation = this.animationCtrl
-      .create()
-      .addElement(this.card.nativeElement)
-      .duration(1000)
-      .iterations(1)
-      .fromTo('opacity', '1', '0');
-
-
-  }
-  async ionViewWillLeave() {
+  this.animation = this.animationCtrl
+    .create()
+    .addElement(this.card.nativeElement)
+    .duration(1000)
+    .iterations(1)
+    .fromTo('opacity', '1', '0');
 
 
-    await this.animation.play();
-    await this.animation.stop();
+}
+async ionViewWillLeave() {
+ 
+
+  await this.animation.play();
+  await this.animation.stop();
 
 
-  }
+}
 
 
 
-  //Fin zona animacion
+//Fin zona animacion
 
 
-<<<<<<< HEAD
 async mostrarAlertaCredencialesInvalidas() {
   const alert = await this.alertController.create({
     header: 'Credenciales inválidas',
@@ -92,37 +87,22 @@ async mostrarAlertaCredencialesInvalidas() {
   await alert.present();
 }
 
-  
-
-=======
-  async mostrarAlertaCredencialesInvalidas() {
-    const alert = await this.alertController.create({
-      header: 'Credenciales inválidas',
-      message: 'Por favor, verifica tus credenciales e intenta nuevamente.',
-      buttons: ['OK']
-    });
->>>>>>> 6457804744cff2f6b744de1254a1b6e7e6824810
-
-    await alert.present();
-  }
-
   ngOnInit() {
   }
 
   async login() {
+
     const respuesta = await lastValueFrom(this.servicio.getLogin('Jona123'));
-
     console.log(respuesta);
-
-
+  
     const usuarioEncontrado = this.sesionUser.find(
       (user: ModelDataBase) => user.username === this.username && user.password === this.password
     );
-
+  
     if (usuarioEncontrado) {
       console.log('Inicio de sesión exitoso');
       this.ionViewWillLeave();
-
+    
       if (usuarioEncontrado.type === 'ALUMNO') {
         this.router.navigate(['/user'], {
           queryParams: {
@@ -145,31 +125,18 @@ async mostrarAlertaCredencialesInvalidas() {
 
       this.mostrarAlertaCredencialesInvalidas();
 
-
-<<<<<<< HEAD
-=======
       console.log('Credenciales inválidas');
->>>>>>> 6457804744cff2f6b744de1254a1b6e7e6824810
 
 
-    };
-    /* if (respuesta.apellido) {
-        console.log('si hay apellido');
-      }else{
-      console.log('no hay apellido');}
-    
-    
-          this.servicio.getLogin().subscribe((data) => {
-      console.log(data.nombre);
-    
-    */
-
+    }
   }
+recuperarContrasena(){
+this.router.navigate(['/password']);
 
 
-recuperarContrasena() {
-  this.router.navigate(['/password']);
 }
 
+
 }
+
 

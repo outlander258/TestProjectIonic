@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
-import { modeloUsuario } from '../modelo/modeloUsuario';
+import { modeloUsuario } from '../modelo/modeloUsuario';	
 
 
 
@@ -24,8 +24,14 @@ export class ServiciosService {
         console.log(userInfo);
         return userInfo[0];
       }));
+    }
+
+
+  
+
+
+
 
   }
-}
 
 //

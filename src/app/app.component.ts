@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import {HttpClientModule} from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
