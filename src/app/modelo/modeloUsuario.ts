@@ -1,10 +1,12 @@
 export interface modeloUsuario {
 
-    name: string,
-    last_name: string,
-    email: string,
-    type: string,
-    username: string,
-    password: string,
+    Nombre: string,
+    Apellido: string,
+    Correo: string,
+    Username: string,
+    Password: string,
+    Secciones: string,
+    Tipo : string
+    id : string
 
 }
