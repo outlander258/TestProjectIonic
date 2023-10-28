@@ -1,10 +1,11 @@
 <ion-header [translucent]="true" class="ion-text-center">
   <ion-toolbar>
-    <ion-img class="ion-text-center logo-ATP" src="../../assets/img/DuocATP oscuro recortado.png" alt="Logo ATP"></ion-img>
+    <ion-img class="ion-text-center logo-ATP" src="../../assets/img/DuocATP oscuro recortado.png"
+      alt="Logo ATP"></ion-img>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" >
+<ion-content [fullscreen]="true">
   <div class="container-fluid Imagen_fondo_docente">
     <img src="../../assets/img/Profesor(a).jpg" alt="Fondo docentes">
   </div>
@@ -17,29 +18,45 @@
           BIENVENIDO
         </ion-card-subtitle>
       </ion-card-header>
-        <ion-img src="../../assets/img/profe hernan.jpg" alt="Imagen de perfil docente" class="ion-text-center imagen_perfil_docente"></ion-img>
+      <ion-img src="../../assets/img/profe hernan.jpg" alt="Imagen de perfil docente"
+        class="ion-text-center imagen_perfil_docente"></ion-img>
       <ion-card-content>
         <p>Nombres: {{ usuarioActual.name }}</p>
         <br>
         <p>Apellidos: {{ usuarioActual.last_name }}</p>
         <br>
-        <p>Tipo de Usuario: {{ usuarioActual.type }}</p>    
+        <p>Tipo de Usuario: {{ usuarioActual.type }}</p>
       </ion-card-content>
     </ion-card>
   </ion-col>
+ 
+
   
-  <ion-col class="columna-botones" >
+  <ion-card>
+    <ion-list>
+      <ion-item *ngFor="let info of secciones">
+        
+        <ion-label>{{ info }}</ion-label>
+
+      </ion-item>
+    </ion-list>
+  </ion-card>
+ 
+
+
+  <ion-col class="columna-botones">
     <ion-row>
       <ion-button color="light" class="Generar-QR" fill="outline">
         <span style="margin-right: 5px;">
           GENERAR QR
-        </span>   
+        </span>
         <ion-icon name="qr-code-sharp"></ion-icon>
       </ion-button>
     </ion-row>
     <ion-row><br></ion-row>
-    <ion-row >
-      <ion-button color="light" class="Cerrar-Sesion" fill="outline" (click)="cerrarSession()">CERRAR SESIÓN</ion-button>
+    <ion-row>
+      <ion-button color="light" class="Cerrar-Sesion" fill="outline" (click)="cerrarSession()">CERRAR
+        SESIÓN</ion-button>
     </ion-row>
   </ion-col>
 

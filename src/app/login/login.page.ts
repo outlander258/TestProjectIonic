@@ -92,7 +92,7 @@ async mostrarAlertaCredencialesInvalidas() {
 
   async login() {
 
-    const respuesta = await lastValueFrom(this.servicio.getLogin('Jona123'));
+    const respuesta = await lastValueFrom(this.servicio.getLogin('jorge123'));
     console.log(respuesta);
   
     const usuarioEncontrado = this.sesionUser.find(

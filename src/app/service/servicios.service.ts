@@ -26,10 +26,13 @@ export class ServiciosService {
       }));
     }
 
+  getSecciones(id_usuario:string): Observable<any> {
+    return this.http.get<any[]>(this.URL_API + 'Asignacion?select=id_seccion(*)&id_usuario=eq.'+id_usuario, { headers: this.header, responseType: 'json' })
+  }
 
-  
-
-
+  postClase(seccion:string):Observable<any> {
+    return this.http.post<any[]>(this.URL_API + 'Usuario?select=Secciones&Username=eq.'+seccion, { headers: this.header, responseType: 'json' })
+  }
 
 
   }
