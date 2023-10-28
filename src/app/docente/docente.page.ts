@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ModelDataBase } from '../modelo/ModelDataBase';
 import { ActivatedRoute } from '@angular/router';
-
+import { ServiciosService } from '../service/servicios.service';
 import { Router } from '@angular/router';
-
+import { modeloSeccion } from '../modelo/modeloSeccion';  
 import type { Animation } from '@ionic/angular';
 import { AnimationController, IonCard } from '@ionic/angular';
+import { lastValueFrom } from 'rxjs';
 
 
 
@@ -23,10 +24,10 @@ export class DocentePage implements OnInit {
   @ViewChild('card', {read: ElementRef}) card!: ElementRef;
   usuarioActual: ModelDataBase | null = null;
   sesionUser: ModelDataBase[] = [];
+  secciones: modeloSeccion[] = [];
 
 
-
-  constructor(private router: Router,private route: ActivatedRoute,private animationCtrl: AnimationController) {}
+  constructor(private router: Router,private route: ActivatedRoute,private animationCtrl: AnimationController, private servicio: ServiciosService) {}
 
 //zona de animacion
 private animation!: Animation;
@@ -44,6 +45,11 @@ ngAfterViewInit() {
 async ionViewWillEnter() {
   await this.animation.play();
   await this.animation.stop();
+
+  this.secciones = await lastValueFrom(this.servicio.getSecciones('4'));
+  console.log(this.secciones);
+
+
 }
 
 
@@ -59,6 +65,11 @@ async ionViewWillEnter() {
 
       this.usuarioActual = new ModelDataBase(nombre, apellido, email, tipo, username, password);
     });
+  
+
+  
+  
+  
   }
 
   cerrarSession() {
