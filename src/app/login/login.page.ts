@@ -10,6 +10,9 @@ import { AnimationController, IonCard } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { last, lastValueFrom } from 'rxjs';
 import { ServiciosService } from '../service/servicios.service'; 
+import { modeloUsuario } from '../modelo/modeloUsuario';
+import { ModelLog } from '../modelo/ModelLog';	
+
 
 
 @Component({
@@ -25,8 +28,13 @@ export class LoginPage {
   password: string | undefined;
   usuarioActual: ModelDataBase | null = null;
   esDocente = false;
+  UserLogin :ModelLog ={
+    username :'',
+    password :''
+  }
 
   isToastOpen = false;
+  usuarioApi :modeloUsuario | null = null;
 
 
 
@@ -90,46 +98,56 @@ async mostrarAlertaCredencialesInvalidas() {
   ngOnInit() {
   }
 
-  async login() {
 
-    const respuesta = await lastValueFrom(this.servicio.getLogin('jorge123'));
-    console.log(respuesta);
+
+  async login() {
+    const userLoginInfo: ModelLog = {
+      username: this.UserLogin.username,
+      password: this.UserLogin.password
+    };
   
-    const usuarioEncontrado = this.sesionUser.find(
-      (user: ModelDataBase) => user.username === this.username && user.password === this.password
-    );
+    const respuesta = await lastValueFrom(this.servicio.getLogin(userLoginInfo));
+
   
-    if (usuarioEncontrado) {
-      console.log('Inicio de sesión exitoso');
-      this.ionViewWillLeave();
-    
-      if (usuarioEncontrado.type === 'ALUMNO') {
-        this.router.navigate(['/user'], {
-          queryParams: {
-            name: usuarioEncontrado.name,
-            last_name: usuarioEncontrado.last_name,
-            type: usuarioEncontrado.type,
-          }
-        });
-      } else if (usuarioEncontrado.type === 'DOCENTE') {
-        this.router.navigate(['/docente'], {
-          queryParams: {
-            name: usuarioEncontrado.name,
-            last_name: usuarioEncontrado.last_name,
-            type: usuarioEncontrado.type,
-          }
-        });
+    if (respuesta) {
+      if (respuesta.Username === this.UserLogin.username && respuesta.Password === this.UserLogin.password) {
+        console.log('Inicio de sesión exitoso');
+        console.log(respuesta.Username);
+        console.log(this.UserLogin.username, this.UserLogin.password);
+  
+        // Validar el tipo de usuario y redirigir a la vista correspondiente
+        if (respuesta.Tipo === 'ALUMNO') {
+          this.router.navigate(['/user'], {
+            queryParams: {
+              name: respuesta.Nombre,
+              last_name: respuesta.Apellido,
+              type: respuesta.Tipo,
+            }
+          })
+         } else if (respuesta.Tipo=== 'DOCENTE') {
+          this.router.navigate(['/docente'], {
+            queryParams: {
+              name: respuesta.Nombre,
+              last_name: respuesta.Apellido,
+              type: respuesta.Tipo,
+            }
+          });
+        }
+      } else {
+        // Credenciales inválidas
+        this.mostrarAlertaCredencialesInvalidas();
+        console.log('Credenciales inválidas');
+        console.log(respuesta.Username);
+        console.log(this.UserLogin.username, this.UserLogin.password);
       }
     } else {
-      // Credenciales inválidas
-
+      // Usuario no encontrado en la base de datos
       this.mostrarAlertaCredencialesInvalidas();
-
-      console.log('Credenciales inválidas');
-
-
     }
   }
+
+
+  
 recuperarContrasena(){
 this.router.navigate(['/password']);
 
