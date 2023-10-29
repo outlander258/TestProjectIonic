@@ -33,14 +33,16 @@ export class ServiciosService {
 
 
 
- // solo objeto de username y password
+ // se valida username y password, retorna tipo, nombre, apellido, id
   getLogin(UserLogin : ModelLog): Observable<modeloUsuario> {
-    return this.http.get<modeloUsuario[]>(this.URL_API +'Usuario?select=Username,Password,Tipo&Username=eq.' + UserLogin.username + '&Password=eq.' + UserLogin.password, { headers: this.header, responseType: 'json' }).pipe(
+    return this.http.get<modeloUsuario[]>(this.URL_API +'Usuario?select=Username,Password,Nombre,Apellido,id,Tipo&Username=eq.' + UserLogin.username + '&Password=eq.' + UserLogin.password, { headers: this.header, responseType: 'json' }).pipe(
       map((userInfo) => {
         console.log(userInfo);
         return userInfo[0];
       }));
     }
+
+
 
 
 
