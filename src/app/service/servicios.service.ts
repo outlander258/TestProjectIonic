@@ -34,7 +34,6 @@ export class ServiciosService {
 
 
 
- // solo objeto de username y password
 
 
  // se valida username y password, retorna tipo, nombre, apellido, id
@@ -59,11 +58,5 @@ export class ServiciosService {
   getClaseActiva(id_seccion:string):Observable<ModeloClase[]>{
     return this.http.get<ModeloClase[]>(this.URL_API+'Clase?select=*&id_seccion=eq.'+id_seccion,{headers:this.header,responseType:'json'})
   }
-
-
-
-
-
-
 
 }
