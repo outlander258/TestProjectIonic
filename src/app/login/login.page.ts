@@ -26,11 +26,20 @@ export class LoginPage {
   @ViewChild('card', { read: ElementRef }) card!: ElementRef;
   username: string | undefined;
   password: string | undefined;
-  usuarioActual: ModelDataBase | null = null;
+  usuarioActual: ModelDataBase| null = null;
   esDocente = false;
-  UserLogin: ModelLog = {
-    username: '',
-    password: ''
+
+  UserLogin :ModelLog ={
+    username :'',
+    password :'',
+    type :'',
+    name: '',
+    last_name: '',
+    id :'',
+    Correo:'',
+    Secciones: '',
+
+
   }
 
   isToastOpen = false;
@@ -103,7 +112,15 @@ export class LoginPage {
   async login() {
     const userLoginInfo: ModelLog = {
       username: this.UserLogin.username,
-      password: this.UserLogin.password
+      password: this.UserLogin.password,
+      type :this.UserLogin.type,
+      name: this.UserLogin.name,
+      last_name: this.UserLogin.last_name,
+      id :this.UserLogin.id,
+      Correo : this.UserLogin.Correo,
+      Secciones: this.UserLogin.Secciones
+ 
+
     };
 
     const respuesta = await lastValueFrom(this.servicio.getLogin(userLoginInfo));
@@ -124,6 +141,7 @@ export class LoginPage {
               name: respuesta.Nombre,
               last_name: respuesta.Apellido,
               type: respuesta.Tipo,
+              id :respuesta.id,
             }
           })
         } else if (respuesta.Tipo === 'DOCENTE') {
@@ -132,6 +150,7 @@ export class LoginPage {
               name: respuesta.Nombre,
               last_name: respuesta.Apellido,
               type: respuesta.Tipo,
+              id: respuesta.id,
             }
           });
         }

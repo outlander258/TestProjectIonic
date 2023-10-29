@@ -36,7 +36,7 @@ export class ServiciosService {
 
 
 
- // se valida username y password, retorna tipo, nombre, apellido, id
+ // Consulta a la base de datos, retorna, username, contraseña, nombre, apellido y tipo 
 
   getLogin(UserLogin : ModelLog): Observable<modeloUsuario> {
     return this.http.get<modeloUsuario[]>(this.URL_API +'Usuario?select=Username,Password,Nombre,Apellido,id,Tipo&Username=eq.' + UserLogin.username + '&Password=eq.' + UserLogin.password, { headers: this.header, responseType: 'json' }).pipe(

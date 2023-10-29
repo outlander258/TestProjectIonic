@@ -9,9 +9,9 @@
   <div class="container-fluid Imagen_fondo_alumno">
     <img src="../../assets/img/Alumnos.jpg" alt="Fondo Estudiantes">
   </div>
-  <ion-card *ngIf="usuarioActual" #card>
+  <ion-card *ngIf="UserLogin" #card>
     <ion-card-header>
-      <ion-card-title>{{ usuarioActual.name }}</ion-card-title>
+      <ion-card-title>{{ UserLogin.Nombre }}</ion-card-title>
       <ion-card-subtitle>
         BIENVENIDO
       </ion-card-subtitle>
@@ -19,11 +19,16 @@
     <ion-img src="../../assets/img/Perfil usuario alumno.jpg" alt="Imagen de perfil alumno"
       class="ion-text-center imagen_perfil_alumno"></ion-img>
     <ion-card-content>
-      <p>Nombres: {{ usuarioActual.name }}</p>
+      <p>Nombres: {{ UserLogin.Nombre }}</p>
       <br>
-      <p>Apellidos: {{ usuarioActual.last_name }}</p>
+      <p>Apellidos: {{ UserLogin.Apellido }}</p>
       <br>
-      <p>Tipo de Usuario: {{ usuarioActual.type }}</p>
+
+      <p>Tipo de Usuario: {{ UserLogin.Tipo }}</p> 
+      <br>
+      <p>ID {{ UserLogin.id }}</p>
+
+
     </ion-card-content>
   </ion-card>
 

@@ -7,10 +7,12 @@ import { ModelDataBase } from '../modelo/ModelDataBase';
 import { Router } from '@angular/router';
 import type { Animation } from '@ionic/angular';
 import { AnimationController, IonCard } from '@ionic/angular';
+import { modeloUsuario } from '../modelo/modeloUsuario';
 import { ServiciosService } from '../service/servicios.service';
 import { ModeloSeccion } from '../modelo/modeloSeccion';
 import { lastValueFrom } from 'rxjs';
-import { ModeloUsuario } from '../modelo/modeloUsuario';
+
+
 
 
 @Component({
@@ -21,10 +23,19 @@ import { ModeloUsuario } from '../modelo/modeloUsuario';
   imports: [IonicModule, CommonModule, FormsModule]
 })
 export class UserPage implements OnInit {
-  @ViewChild('card', { read: ElementRef }) card!: ElementRef;
-  usuarioActual: ModeloUsuario | null = null;
+
+  @ViewChild('card', {read: ElementRef}) card!: ElementRef;
+
+
+   //base de datos en duro(arreglo)
+  usuarioActual: ModelDataBase | null = null;
+
   sesionUser: ModelDataBase[] = [];
   secciones: ModeloSeccion[] = [];
+
+  // supabase
+  UserLogin :modeloUsuario  | null = null;
+  sesionDB :modeloUsuario[] = [];
 
 
   constructor(private router: Router, private route: ActivatedRoute, private animationCtrl: AnimationController, private servicio: ServiciosService) { }
@@ -53,25 +64,31 @@ export class UserPage implements OnInit {
   //fin animacion
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      const nombre = params['name'];
-      const apellido = params['last_name'];
-      const tipo = params['type'];
-      const email = params['email'];
-      const username = params['username'];
-      const password = params['password'];
-
-      this.usuarioActual = new ModelDataBase(nombre, apellido, email, tipo, username, password);
+      this.UserLogin = {
+        Username: params['username'],
+        Password: params['password'],
+       Tipo: params['type'],
+        Nombre: params['name'],
+        Apellido: params['last_name'],
+        id: params['id'],
+        Correo : params ['Correo'],
+        Secciones: params ['Secciones']
+      };
     });
+
 
 
 
   }
   informacion(info: any) {
     console.log(info);
+
   }
 
   cerrarSession() {
+    console.log(this.UserLogin?.id)
     this.router.navigate(['/login']);
+
   }
   
 /*   mostrarClases(id:string){
