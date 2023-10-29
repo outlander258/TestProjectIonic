@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, map } from 'rxjs';
 import { modeloUsuario } from '../modelo/modeloUsuario';	
 import { ModelLog } from '../modelo/ModelLog';
+import { ModeloSeccion } from '../modelo/modeloSeccion';
+import { ModeloClase } from '../modelo/ModeloClase';
 
 
 
@@ -31,8 +33,6 @@ export class ServiciosService {
   }
 
 
-
-
  // solo objeto de username y password
   getLogin(UserLogin : ModelLog): Observable<modeloUsuario> {
     return this.http.get<modeloUsuario[]>(this.URL_API +'Usuario?select=Username,Password,Tipo&Username=eq.' + UserLogin.username + '&Password=eq.' + UserLogin.password, { headers: this.header, responseType: 'json' }).pipe(
@@ -42,8 +42,17 @@ export class ServiciosService {
       }));
     }
 
-  getSecciones(id_usuario:string): Observable<any> {
-    return this.http.get<any[]>(this.URL_API + 'Asignacion?select=id_seccion(*)&id_usuario=eq.'+id_usuario, { headers: this.header, responseType: 'json' })
+  getSecciones(id_usuario:string): Observable<ModeloSeccion[]> {
+    return this.http.get<ModeloSeccion[]>(this.URL_API + 'Asignacion?select=id_seccion(*)&id_usuario=eq.'+id_usuario, { headers: this.header, responseType: 'json' })
+  }
+
+  postClase(id_seccion:string, cod_unico:string):Observable<any>{
+    const cuerpo = { id_seccion: id_seccion , cod_unico: cod_unico};
+    return this.http.post(this.URL_API+'Clase',cuerpo,{headers:this.header,responseType:'json'})
+  }
+
+  getClaseActiva(id_seccion:string):Observable<ModeloClase[]>{
+    return this.http.get<ModeloClase[]>(this.URL_API+'Clase?select=*&id_seccion=eq.'+id_seccion,{headers:this.header,responseType:'json'})
   }
 
 
@@ -52,12 +61,4 @@ export class ServiciosService {
 
 
 
-  
-
-
-
-
-
-  }
-
-//
+}

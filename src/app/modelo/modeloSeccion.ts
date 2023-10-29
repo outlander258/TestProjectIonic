@@ -1,7 +1,9 @@
-export interface modeloSeccion {
+export interface ModeloSeccion {
 
+id_seccion:{
     id: string;
-    sigla: string;
-    nombre: string;
+    Sigla: string;
+    Nombre: string;
 
+}
 }
