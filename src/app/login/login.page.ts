@@ -105,6 +105,9 @@ export class LoginPage {
   }
 
   ngOnInit() {
+    localStorage.clear();
+
+    
   }
 
 
@@ -136,6 +139,8 @@ export class LoginPage {
 
         // Validar el tipo de usuario y redirigir a la vista correspondiente
         if (respuesta.Tipo === 'ALUMNO') {
+         localStorage.setItem('username','ALUMNO');
+         console.log(localStorage)
           this.router.navigate(['/user'], {
             queryParams: {
               name: respuesta.Nombre,
@@ -145,6 +150,9 @@ export class LoginPage {
             }
           })
         } else if (respuesta.Tipo === 'DOCENTE') {
+
+          localStorage.setItem('username', 'DOCENTE');
+          console.log(localStorage)
           this.router.navigate(['/docente'], {
             queryParams: {
               name: respuesta.Nombre,

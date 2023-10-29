@@ -1,4 +1,7 @@
 import { Routes } from '@angular/router';
+import { demonGuard } from './guard/authGuard';
+
+
 
 
 export const routes: Routes = [
@@ -11,15 +14,20 @@ export const routes: Routes = [
   {
     path: 'login',
     loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
+
   },
   {
     path: 'user',
     loadComponent: () => import('./user/user.page').then( m => m.UserPage),
+   canActivate:[demonGuard]
+   
 
   },
   {
     path: 'docente',
-    loadComponent: () => import('./docente/docente.page').then( m => m.DocentePage)
+    loadComponent: () => import('./docente/docente.page').then( m => m.DocentePage),
+    canActivate:[demonGuard]
+    
   },
   {
     path: 'password',
