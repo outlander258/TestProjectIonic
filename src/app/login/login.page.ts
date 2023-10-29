@@ -99,6 +99,7 @@ export class LoginPage {
   }
 
 
+
   async login() {
     const userLoginInfo: ModelLog = {
       username: this.UserLogin.username,
@@ -106,6 +107,8 @@ export class LoginPage {
     };
 
     const respuesta = await lastValueFrom(this.servicio.getLogin(userLoginInfo));
+
+
 
     if (respuesta) {
       if (respuesta.Username === this.UserLogin.username && respuesta.Password === this.UserLogin.password) {
