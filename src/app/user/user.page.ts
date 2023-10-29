@@ -10,6 +10,7 @@ import { AnimationController, IonCard } from '@ionic/angular';
 import { ServiciosService } from '../service/servicios.service';
 import { ModeloSeccion } from '../modelo/modeloSeccion';
 import { lastValueFrom } from 'rxjs';
+import { ModeloUsuario } from '../modelo/modeloUsuario';
 
 
 @Component({
@@ -21,7 +22,7 @@ import { lastValueFrom } from 'rxjs';
 })
 export class UserPage implements OnInit {
   @ViewChild('card', { read: ElementRef }) card!: ElementRef;
-  usuarioActual: ModelDataBase | null = null;
+  usuarioActual: ModeloUsuario | null = null;
   sesionUser: ModelDataBase[] = [];
   secciones: ModeloSeccion[] = [];
 
@@ -73,9 +74,9 @@ export class UserPage implements OnInit {
     this.router.navigate(['/login']);
   }
   
-  mostrarClases(id:string){
-    const info1 = lastValueFrom(this.servicio.getClaseActiva(id))
+/*   mostrarClases(id:string){
+    const info1 = lastValueFrom(this.servicio.getClaseActiva())
     console.log(info1);
-  }
+  } */
 }
 
