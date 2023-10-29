@@ -7,5 +7,6 @@ export class ModelDataBase{
         public type: string,
         public username: string,
         public password: string,
+
     ) {
     }}

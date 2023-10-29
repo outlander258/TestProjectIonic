@@ -7,6 +7,7 @@ import { ModelDataBase } from '../modelo/ModelDataBase';
 import { Router } from '@angular/router';
 import type { Animation } from '@ionic/angular';
 import { AnimationController, IonCard } from '@ionic/angular';
+import { modeloUsuario } from '../modelo/modeloUsuario';
 
 
 @Component({
@@ -18,8 +19,15 @@ import { AnimationController, IonCard } from '@ionic/angular';
 })
 export class UserPage implements OnInit {
   @ViewChild('card', {read: ElementRef}) card!: ElementRef;
+
+
+   //base de datos en duro(arreglo)
   usuarioActual: ModelDataBase | null = null;
   sesionUser: ModelDataBase[] = [];
+
+  // supabase
+  UserLogin :modeloUsuario  | null = null;
+  sesionDB :modeloUsuario[] = [];
 
 
   constructor(private router: Router,private route: ActivatedRoute,private animationCtrl: AnimationController) {}
@@ -47,19 +55,24 @@ async ionViewWillEnter() {
 //fin animacion
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      const nombre = params['name'];
-      const apellido = params['last_name'];
-      const tipo = params['type'];
-      const email = params['email'];
-      const username = params['username'];
-      const password = params['password'];
-
-      this.usuarioActual = new ModelDataBase(nombre, apellido, email, tipo, username, password);
+      this.UserLogin = {
+        Username: params['username'],
+        Password: params['password'],
+       Tipo: params['type'],
+        Nombre: params['name'],
+        Apellido: params['last_name'],
+        id: params['id'],
+        Correo : params ['Correo'],
+        Secciones: params ['Secciones']
+      };
     });
+    
   }
 
   cerrarSession() {
+    console.log(this.UserLogin?.id)
     this.router.navigate(['/login']);
+
   
   }
 }
