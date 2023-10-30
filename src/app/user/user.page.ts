@@ -97,6 +97,7 @@ export class UserPage implements OnInit {
   cerrarSession() {
     console.log(this.UserLogin?.id)
     this.router.navigate(['/login']);
+    localStorage.clear();
 
   }
 
