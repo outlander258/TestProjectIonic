@@ -78,7 +78,6 @@ export class UserPage implements OnInit {
 
 
 
-
   }
   informacion(info: any) {
     console.log(info);
@@ -88,6 +87,7 @@ export class UserPage implements OnInit {
   cerrarSession() {
     console.log(this.UserLogin?.id)
     this.router.navigate(['/login']);
+    localStorage.clear();
 
   }
   

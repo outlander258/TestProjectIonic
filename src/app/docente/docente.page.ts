@@ -86,6 +86,7 @@ export class DocentePage implements OnInit {
 
   cerrarSession() {
     this.router.navigate(['/login']);
+    localStorage.clear();
 
   }
 
