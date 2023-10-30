@@ -6,7 +6,7 @@ export interface modeloUsuario {
     Username: string,
     Password: string,
     Secciones: string,
-    Tipo : string
+    Tipo : string,
     id : string
 
 }

@@ -93,10 +93,8 @@ export class DocentePage implements OnInit {
 
     const fechaActual: Date = new Date();
     const soloFecha: string = fechaActual.toISOString().split('T')[0];
-    this.servicio.postClase(id_seccion, soloFecha.toString()).subscribe((res) => {
-      console.log(res);
-    })
+    this.servicio.postClase(id_seccion, soloFecha.toString())
+    }
   }
 
 
-}
