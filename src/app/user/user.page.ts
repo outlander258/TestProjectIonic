@@ -74,6 +74,18 @@ export class UserPage implements OnInit {
 
   //fin animacion
   ngOnInit() {
+   
+    const userStorage = localStorage.getItem('username');
+
+    if (userStorage !== 'ALUMNO') {
+      // Si el usuario no es de tipo DOCENTE, redirige a la página de inicio de sesión
+      this.router.navigate(['/login']);
+    }
+
+
+
+
+    
     this.route.queryParams.subscribe(params => {
       this.UserLogin = {
         Username: params['username'],
@@ -108,6 +120,7 @@ export class UserPage implements OnInit {
     this.clases = await lastValueFrom(this.servicio.getClaseActiva(id))
     console.log(this.clases);
   }
+
 
   async cargarAsistencia(id_clase: string, id_alumno: any) {
     const asistencia: ModeloAsistencia = {

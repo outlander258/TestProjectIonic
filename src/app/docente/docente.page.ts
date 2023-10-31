@@ -10,8 +10,12 @@ import { ModeloSeccion } from '../modelo/modeloSeccion';
 import type { Animation } from '@ionic/angular';
 import { AnimationController } from '@ionic/angular';
 import { lastValueFrom } from 'rxjs';
+
 import { ModeloAsistencia } from '../modelo/ModeloAsistencia';
 import { ModeloClaseOUT } from '../modelo/ModeloClaseOUT';
+
+import { modeloUsuario } from '../modelo/modeloUsuario';
+
 
 
 
@@ -25,8 +29,10 @@ import { ModeloClaseOUT } from '../modelo/ModeloClaseOUT';
 export class DocentePage implements OnInit {
   isModalOpen = false;
   @ViewChild('card', { read: ElementRef }) card!: ElementRef;
+  // base de datos en duro
   usuarioActual: ModelDataBase | null = null;
   sesionUser: ModelDataBase[] = [];
+  // secciones
   secciones: ModeloSeccion[] = [];
   asistencia: ModeloAsistencia[] = [];
   clase= {
@@ -34,6 +40,11 @@ export class DocentePage implements OnInit {
     id_seccion: '',
     cod_unico: ''
   }
+
+  //supaBase
+  UserLogin :modeloUsuario  | null = null;
+  sesionDB :modeloUsuario[] = [];
+
 
 
 
@@ -68,17 +79,30 @@ export class DocentePage implements OnInit {
 
 
   ngOnInit() {
+
+    const userStorage = localStorage.getItem('username');
+
+    if (userStorage !== 'DOCENTE') {
+      // Si el usuario no es de tipo DOCENTE, redirige a la página de inicio de sesión
+      this.router.navigate(['/login']);
+    }
+
+
+
+
+
     this.route.queryParams.subscribe(params => {
-      const nombre = params['name'];
-      const apellido = params['last_name'];
-      const tipo = params['type'];
-      const email = params['email'];
-      const username = params['username'];
-      const password = params['password'];
-
-      this.usuarioActual = new ModelDataBase(nombre, apellido, email, tipo, username, password);
+      this.UserLogin = {
+        Username: params['username'],
+        Password: params['password'],
+        Tipo: params['type'],
+        Nombre: params['name'],
+        Apellido: params['last_name'],
+        id: params['id'],
+        Correo: params['Correo'],
+        Secciones: params['Secciones']
+      };
     });
-
 
 
 

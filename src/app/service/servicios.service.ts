@@ -10,6 +10,7 @@ import { ModeloAsistencia } from '../modelo/ModeloAsistencia';
 
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -52,9 +53,31 @@ export class ServiciosService {
     return this.http.get<ModeloSeccion[]>(this.URL_API + 'Asignacion?select=id_seccion(*)&id_usuario=eq.' + id_usuario, { headers: this.header, responseType: 'json' })
   }
 
+
   getDatos(id_usuario: any): Observable<modeloUsuario[]> {
     return this.http.get<modeloUsuario[]>(this.URL_API + 'Usuario?select=*&id=eq.' + id_usuario, { headers: this.header, responseType: 'json' })
+
+  postClase(id_seccion: string, cod_unico: string): Observable<any> {
+    const cuerpo = { id_seccion: id_seccion, cod_unico: cod_unico };
+    console.log(cuerpo);
+    return this.http.post(this.URL_API + 'Clase', cuerpo, { headers: this.header, responseType: 'json' }).pipe(
+      map(
+        (user)=>{
+          console.log(user);
+
+        }
+      ),catchError(
+        (
+          err 
+        ) =>{
+          console.log(err,'error 505 not found')
+          return err
+        }
+      )
+    );
+
   }
+
 
 
 
@@ -70,12 +93,17 @@ export class ServiciosService {
   getClaseActiva(id_seccion: string): Observable<ModeloClaseIN[]> {
     return this.http.get<ModeloClaseIN[]>(this.URL_API + 'Clase?select=*&id_seccion=eq.' + id_seccion, { headers: this.header, responseType: 'json' })
   }
-
-
+/*
+  postCargaAsistencia(id_clase: string, id_alumno:string): Observable<any> {
+    const body = { id_clase: id_clase.toString(), id_alumno: id_alumno};
+    console.log("body servicio:", body);
+    return this.http.post(this.URL_API + 'Asistencia', body, { headers: this.header, responseType: 'json' });
+  }
+*/
+  
+  
   postCargaAsistencia(asistencia: ModeloAsistencia): Observable<any> {
-
     return this.http.post(this.URL_API + 'Asistencia', asistencia, { headers: this.header, responseType: 'json' })
-
   }
 
 }
