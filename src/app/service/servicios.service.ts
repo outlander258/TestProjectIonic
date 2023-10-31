@@ -29,7 +29,6 @@ export class ServiciosService {
   getUser(user_id: string): Observable<modeloUsuario> {
     return this.http.get<modeloUsuario[]>(this.URL_API + 'users?user_id=eq.' + user_id, { headers: this.header, responseType: 'json' }).pipe(
       map((userInfo) => {
-        console.log(userInfo)
         return userInfo[0];
       })
     );
@@ -44,7 +43,6 @@ export class ServiciosService {
   getLogin(UserLogin: ModelLog): Observable<modeloUsuario> {
     return this.http.get<modeloUsuario[]>(this.URL_API + 'Usuario?select=Username,Password,Nombre,Apellido,id,Tipo&Username=eq.' + UserLogin.username + '&Password=eq.' + UserLogin.password, { headers: this.header, responseType: 'json' }).pipe(
       map((userInfo) => {
-        console.log(userInfo);
         return userInfo[0];
       }));
   }
@@ -83,10 +81,6 @@ export class ServiciosService {
 
   postClase(clase:ModeloClaseOUT): Observable<any> {
     // const cuerpo = { id_seccion: id_seccion, cod_unico: cod_unico };
-    console.log("clase servicio:"+JSON.stringify( clase))
-    console.log("clase seccion:"+clase.id_seccion)
-    console.log("clase cod_unico:"+clase.cod_unico)
-
     return this.http.post(this.URL_API + 'Clase',clase, { headers: this.header })
   }
 
@@ -105,5 +99,10 @@ export class ServiciosService {
   postCargaAsistencia(asistencia: ModeloAsistencia): Observable<any> {
     return this.http.post(this.URL_API + 'Asistencia', asistencia, { headers: this.header, responseType: 'json' })
   }
+
+  getConsulaAsistencia(id_clase: string): Observable<ModeloAsistencia[]> {
+    return this.http.get<ModeloAsistencia[]>(this.URL_API + 'Asistencia?select=id_alumno(Nombre,Apellido)&id_clase=eq.' + id_clase, { headers: this.header, responseType: 'json' })
+  }
+
 
 }

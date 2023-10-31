@@ -134,13 +134,10 @@ export class LoginPage {
       if (respuesta.Username === this.UserLogin.username && respuesta.Password === this.UserLogin.password) {
         console.log('Inicio de sesión exitoso');
         localStorage.setItem('username',JSON.stringify(respuesta));
-        console.log(respuesta.Username);
-        console.log(this.UserLogin.username, this.UserLogin.password);
 
         // Validar el tipo de usuario y redirigir a la vista correspondiente
         if (respuesta.Tipo === 'ALUMNO') {
          localStorage.setItem('username','ALUMNO');
-         console.log(localStorage)
           this.router.navigate(['/user'], {
             queryParams: {
               name: respuesta.Nombre,

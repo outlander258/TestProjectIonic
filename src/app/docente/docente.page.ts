@@ -8,13 +8,14 @@ import { ServiciosService } from '../service/servicios.service';
 import { Router } from '@angular/router';
 import { ModeloSeccion } from '../modelo/modeloSeccion';
 import type { Animation } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { AnimationController } from '@ionic/angular';
 import { lastValueFrom } from 'rxjs';
-
 import { ModeloAsistencia } from '../modelo/ModeloAsistencia';
 import { ModeloClaseOUT } from '../modelo/ModeloClaseOUT';
-
 import { modeloUsuario } from '../modelo/modeloUsuario';
+import { ModeloClaseIN } from '../modelo/modeloClaseIN';
+import { ModalController } from '@ionic/angular';
 
 
 
@@ -28,6 +29,7 @@ import { modeloUsuario } from '../modelo/modeloUsuario';
 })
 export class DocentePage implements OnInit {
   isModalOpen = false;
+  isModalOpen2 = false;
   @ViewChild('card', { read: ElementRef }) card!: ElementRef;
   // base de datos en duro
   usuarioActual: ModelDataBase | null = null;
@@ -44,12 +46,14 @@ export class DocentePage implements OnInit {
   //supaBase
   UserLogin :modeloUsuario  | null = null;
   sesionDB :modeloUsuario[] = [];
+  claseActiva: ModeloClaseIN[] = [];
 
 
 
 
 
-  constructor(private router: Router, private route: ActivatedRoute, private animationCtrl: AnimationController, private servicio: ServiciosService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private alertController: AlertController,
+              private animationCtrl: AnimationController, private servicio: ServiciosService, private modalController: ModalController) { }
 
   //zona de animacion
   private animation!: Animation;
@@ -68,13 +72,20 @@ export class DocentePage implements OnInit {
     await this.animation.play();
     await this.animation.stop();
 
-    this.secciones = await lastValueFrom(this.servicio.getSecciones('4'));
+    this.secciones = await lastValueFrom(this.servicio.getSecciones(this.UserLogin?.id));
     console.log(this.secciones);
+    
+    
 
   }
 
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
+  }
+
+  async setOpen2(isOpen: boolean, ) {
+    this.isModalOpen2 = isOpen;
+    this.asistencia = await lastValueFrom(this.servicio.getConsulaAsistencia("5"));
   }
 
 
@@ -87,6 +98,7 @@ export class DocentePage implements OnInit {
       this.router.navigate(['/login']);
     }
 
+    
 
 
 
@@ -115,6 +127,26 @@ export class DocentePage implements OnInit {
 
   }
 
+  async mostrarClasesActivas(id_seccion: string) {
+    this.claseActiva = await lastValueFrom(this.servicio.getClaseActiva(id_seccion));
+  }
+
+  async mostrarAsistencia(id_clase: string) {
+    this.asistencia = await lastValueFrom(this.servicio.getConsulaAsistencia(id_clase));
+    console.log(this.asistencia);
+
+  }
+
+
+  async mostrarAlertaClaseCreada(fecha: string) {
+    const alert = await this.alertController.create({
+      header: 'Clase creada',
+      message: 'Se creo la clase exitosamente con fecha: '+fecha,
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
   async crearClase(id_seccion: string) {
 
     const fechaActual: Date = new Date();
@@ -126,7 +158,10 @@ export class DocentePage implements OnInit {
       cod_unico: soloFecha
     }
     const response =await lastValueFrom(this.servicio.postClase(clase))
-    }
+    await this.mostrarAlertaClaseCreada(soloFecha);
+  }
+
+    
   }
 
 

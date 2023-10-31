@@ -45,7 +45,7 @@ export class UserPage implements OnInit {
   datos: modeloUsuario[] = [];
 
 
-  constructor(private router: Router, private route: ActivatedRoute, private animationCtrl: AnimationController, private servicio: ServiciosService, private alerta: AlertController) { }
+  constructor(private router: Router, private route: ActivatedRoute,private alertController: AlertController, private animationCtrl: AnimationController, private servicio: ServiciosService, private alerta: AlertController) { }
   //zona de animacion
   private animation!: Animation;
 
@@ -103,12 +103,6 @@ export class UserPage implements OnInit {
 
 
 
-
-  informacion(info: any) {
-    console.log(info);
-
-  }
-
   cerrarSession() {
     console.log(this.UserLogin?.id)
     this.router.navigate(['/login']);
@@ -118,9 +112,16 @@ export class UserPage implements OnInit {
 
   async mostrarClases(id: string) {
     this.clases = await lastValueFrom(this.servicio.getClaseActiva(id))
-    console.log(this.clases);
-  }
 
+  }
+  async mostrarAlertaClaseCreada() {
+    const alert = await this.alertController.create({
+      header: 'Clase Registrada',
+      message: 'Se exitosamente en la clase',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
 
   async cargarAsistencia(id_clase: string, id_alumno: any) {
     const asistencia: ModeloAsistencia = {
@@ -128,7 +129,7 @@ export class UserPage implements OnInit {
       id_alumno: id_alumno
     }
     await lastValueFrom(this.servicio.postCargaAsistencia(asistencia))
-
+    await this.mostrarAlertaClaseCreada()
   }
 }
 
