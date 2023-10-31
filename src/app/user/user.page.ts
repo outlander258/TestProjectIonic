@@ -6,13 +6,14 @@ import { ActivatedRoute } from '@angular/router';
 import { ModelDataBase } from '../modelo/ModelDataBase';
 import { Router } from '@angular/router';
 import type { Animation } from '@ionic/angular';
-import { AnimationController, IonCard } from '@ionic/angular';
+import { AnimationController } from '@ionic/angular';
 import { modeloUsuario } from '../modelo/modeloUsuario';
 import { ServiciosService } from '../service/servicios.service';
 import { ModeloSeccion } from '../modelo/modeloSeccion';
 import { lastValueFrom } from 'rxjs';
-import { ModeloClase } from '../modelo/ModeloClase';
 import { AlertController } from '@ionic/angular';
+import { ModeloClaseIN } from '../modelo/modeloClaseIN';
+import { ModeloAsistencia } from '../modelo/ModeloAsistencia';
 
 
 
@@ -35,13 +36,13 @@ export class UserPage implements OnInit {
 
   sesionUser: ModelDataBase[] = [];
   secciones: ModeloSeccion[] = [];
-  clases: ModeloClase[] = [];
+  clases: ModeloClaseIN[] = [];
 
 
   // supabase
-  UserLogin :modeloUsuario  | null = null;
-  sesionDB :modeloUsuario[] = [];
-  
+  UserLogin: modeloUsuario | null = null;
+  sesionDB: modeloUsuario[] = [];
+  datos: modeloUsuario[] = [];
 
 
   constructor(private router: Router, private route: ActivatedRoute, private animationCtrl: AnimationController, private servicio: ServiciosService, private alerta: AlertController) { }
@@ -66,6 +67,8 @@ export class UserPage implements OnInit {
     await this.animation.play();
     await this.animation.stop();
     this.secciones = await lastValueFrom(this.servicio.getSecciones(this.UserLogin?.id));
+    this.datos = await lastValueFrom(this.servicio.getDatos(this.UserLogin?.id));
+    console.log("datos nuevos:" + this.datos);
   }
 
 
@@ -117,19 +120,15 @@ export class UserPage implements OnInit {
     this.clases = await lastValueFrom(this.servicio.getClaseActiva(id))
     console.log(this.clases);
   }
-  
-  async cargarAsistencia(id_clase: string) {
-    if (this.UserLogin) {
-      const cuerpo = {
-        id_clase: id_clase.toString(),
-        id_alumno: this.UserLogin.id
-      };
-      console.log(cuerpo);
-      this.servicio.postCargaAsistencia(id_clase, this.UserLogin.id);
-    } else {
-      console.log('No se ha iniciado sesión o no se ha recibido el ID del usuario.');
-      // Puedes manejar este caso de otra forma, como mostrar un mensaje de error.
+
+
+  async cargarAsistencia(id_clase: string, id_alumno: any) {
+    const asistencia: ModeloAsistencia = {
+      id_clase: id_clase,
+      id_alumno: id_alumno
     }
+    await lastValueFrom(this.servicio.postCargaAsistencia(asistencia))
+
   }
 }
 

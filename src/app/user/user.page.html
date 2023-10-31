@@ -63,13 +63,12 @@
             <ion-item *ngFor="let clase of clases">
               <ion-label>{{ clase.cod_unico }}</ion-label>
               <ion-label>{{ clase.id }}</ion-label>
-              <ion-button  class="Registrar_Asistencia" fill="outline" (click)="cargarAsistencia(clase.id)">Registrar
+              <ion-button  class="Registrar_Asistencia" fill="outline" (click)="cargarAsistencia(clase.id,this.UserLogin?.id)">Registrar
 
 
                 <ion-icon name="checkbox-outline"></ion-icon>
               </ion-button>
             </ion-item>
-
 
 
           </ion-list>

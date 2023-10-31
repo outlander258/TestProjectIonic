@@ -8,9 +8,14 @@ import { ServiciosService } from '../service/servicios.service';
 import { Router } from '@angular/router';
 import { ModeloSeccion } from '../modelo/modeloSeccion';
 import type { Animation } from '@ionic/angular';
-import { AnimationController, IonCard } from '@ionic/angular';
+import { AnimationController } from '@ionic/angular';
 import { lastValueFrom } from 'rxjs';
+
+import { ModeloAsistencia } from '../modelo/ModeloAsistencia';
+import { ModeloClaseOUT } from '../modelo/ModeloClaseOUT';
+
 import { modeloUsuario } from '../modelo/modeloUsuario';
+
 
 
 
@@ -22,15 +27,24 @@ import { modeloUsuario } from '../modelo/modeloUsuario';
   imports: [IonicModule, CommonModule, FormsModule]
 })
 export class DocentePage implements OnInit {
+  isModalOpen = false;
   @ViewChild('card', { read: ElementRef }) card!: ElementRef;
   // base de datos en duro
   usuarioActual: ModelDataBase | null = null;
   sesionUser: ModelDataBase[] = [];
   // secciones
   secciones: ModeloSeccion[] = [];
+  asistencia: ModeloAsistencia[] = [];
+  clase= {
+    id: '',
+    id_seccion: '',
+    cod_unico: ''
+  }
+
   //supaBase
   UserLogin :modeloUsuario  | null = null;
   sesionDB :modeloUsuario[] = [];
+
 
 
 
@@ -54,24 +68,16 @@ export class DocentePage implements OnInit {
     await this.animation.play();
     await this.animation.stop();
 
-
-
-
     this.secciones = await lastValueFrom(this.servicio.getSecciones('4'));
     console.log(this.secciones);
 
+  }
 
-
-
-
-
-
-
-
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
   }
 
 
-  //fin animacion
   ngOnInit() {
 
     const userStorage = localStorage.getItem('username');
@@ -109,11 +115,17 @@ export class DocentePage implements OnInit {
 
   }
 
-  crearClase(id_seccion: string) {
+  async crearClase(id_seccion: string) {
 
     const fechaActual: Date = new Date();
     const soloFecha: string = fechaActual.toISOString().split('T')[0];
-    this.servicio.postClase(id_seccion, soloFecha.toString())
+
+    const clase: ModeloClaseOUT = {
+      
+      id_seccion: id_seccion,
+      cod_unico: soloFecha
+    }
+    const response =await lastValueFrom(this.servicio.postClase(clase))
     }
   }
 
