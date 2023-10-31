@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { modeloUsuario } from '../modelo/modeloUsuario';
 import { ModelLog } from '../modelo/ModelLog';
 import { ModeloSeccion } from '../modelo/modeloSeccion';
-import { ModeloClase } from '../modelo/ModeloClase';
+import { ModeloClaseOUT } from '../modelo/ModeloClaseOUT';
+import { ModeloClaseIN } from '../modelo/modeloClaseIN';
+import { ModeloAsistencia } from '../modelo/ModeloAsistencia';
 
 
 
@@ -50,23 +52,30 @@ export class ServiciosService {
     return this.http.get<ModeloSeccion[]>(this.URL_API + 'Asignacion?select=id_seccion(*)&id_usuario=eq.' + id_usuario, { headers: this.header, responseType: 'json' })
   }
 
-  postClase(id_seccion: string, cod_unico: string): Observable<any> {
-    const cuerpo = { id_seccion: id_seccion, cod_unico: cod_unico };
-    return this.http.post(this.URL_API + 'Clase', cuerpo, { headers: this.header, responseType: 'json' })
-  }
-
-  getClaseActiva(id_seccion: string): Observable<ModeloClase[]> {
-    return this.http.get<ModeloClase[]>(this.URL_API + 'Clase?select=*&id_seccion=eq.' + id_seccion, { headers: this.header, responseType: 'json' })
-  }
-
-
-  postCargaAsistencia(body: any): Observable<any> {
-    console.log("body servicio:"+body.type);
-    return this.http.post(this.URL_API + 'Asistencia', body, { headers: this.header, responseType: 'json' })
-
+  getDatos(id_usuario: any): Observable<modeloUsuario[]> {
+    return this.http.get<modeloUsuario[]>(this.URL_API + 'Usuario?select=*&id=eq.' + id_usuario, { headers: this.header, responseType: 'json' })
   }
 
 
 
+  postClase(clase:ModeloClaseOUT): Observable<any> {
+    // const cuerpo = { id_seccion: id_seccion, cod_unico: cod_unico };
+    console.log("clase servicio:"+JSON.stringify( clase))
+    console.log("clase seccion:"+clase.id_seccion)
+    console.log("clase cod_unico:"+clase.cod_unico)
+
+    return this.http.post(this.URL_API + 'Clase',clase, { headers: this.header })
+  }
+
+  getClaseActiva(id_seccion: string): Observable<ModeloClaseIN[]> {
+    return this.http.get<ModeloClaseIN[]>(this.URL_API + 'Clase?select=*&id_seccion=eq.' + id_seccion, { headers: this.header, responseType: 'json' })
+  }
+
+
+  postCargaAsistencia(asistencia: ModeloAsistencia): Observable<any> {
+
+    return this.http.post(this.URL_API + 'Asistencia', asistencia, { headers: this.header, responseType: 'json' })
+
+  }
 
 }

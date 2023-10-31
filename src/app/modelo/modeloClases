@@ -1,7 +1,0 @@
-export interface models {
-
-seccion: string;
-fecha: string;
-asistencia: string;
-
-}
