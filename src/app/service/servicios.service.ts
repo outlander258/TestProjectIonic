@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, map,catchError } from 'rxjs';
 import { modeloUsuario } from '../modelo/modeloUsuario';
 import { ModelLog } from '../modelo/ModelLog';
 import { ModeloSeccion } from '../modelo/modeloSeccion';
 import { ModeloClase } from '../modelo/ModeloClase';
+
 
 
 
@@ -52,7 +53,22 @@ export class ServiciosService {
 
   postClase(id_seccion: string, cod_unico: string): Observable<any> {
     const cuerpo = { id_seccion: id_seccion, cod_unico: cod_unico };
-    return this.http.post(this.URL_API + 'Clase', cuerpo, { headers: this.header, responseType: 'json' })
+    console.log(cuerpo);
+    return this.http.post(this.URL_API + 'Clase', cuerpo, { headers: this.header, responseType: 'json' }).pipe(
+      map(
+        (user)=>{
+          console.log(user);
+
+        }
+      ),catchError(
+        (
+          err 
+        ) =>{
+          console.log(err,'error 505 not found')
+          return err
+        }
+      )
+    );
   }
 
   getClaseActiva(id_seccion: string): Observable<ModeloClase[]> {
@@ -60,12 +76,13 @@ export class ServiciosService {
   }
 
 
-  postCargaAsistencia(body: any): Observable<any> {
-    console.log("body servicio:"+body.type);
-    return this.http.post(this.URL_API + 'Asistencia', body, { headers: this.header, responseType: 'json' })
+  postCargaAsistencia(id_clase: string, id_alumno:string): Observable<any> {
+    const body = { id_clase: id_clase.toString(), id_alumno: id_alumno};
 
+    console.log("body servicio:", body);
+
+    return this.http.post(this.URL_API + 'Asistencia', body, { headers: this.header, responseType: 'json' });
   }
-
 
 
 

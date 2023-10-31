@@ -71,6 +71,18 @@ export class UserPage implements OnInit {
 
   //fin animacion
   ngOnInit() {
+   
+    const userStorage = localStorage.getItem('username');
+
+    if (userStorage !== 'ALUMNO') {
+      // Si el usuario no es de tipo DOCENTE, redirige a la página de inicio de sesión
+      this.router.navigate(['/login']);
+    }
+
+
+
+
+    
     this.route.queryParams.subscribe(params => {
       this.UserLogin = {
         Username: params['username'],
@@ -106,11 +118,18 @@ export class UserPage implements OnInit {
     console.log(this.clases);
   }
   
-  async cargarAsistencia(id_clase:string){
-    const cuerpo =  {id_clase: id_clase ,id_alumno: this.UserLogin?.id};
-    console.log(cuerpo);
-    this.servicio.postCargaAsistencia(cuerpo)
-    
+  async cargarAsistencia(id_clase: string) {
+    if (this.UserLogin) {
+      const cuerpo = {
+        id_clase: id_clase.toString(),
+        id_alumno: this.UserLogin.id
+      };
+      console.log(cuerpo);
+      this.servicio.postCargaAsistencia(id_clase, this.UserLogin.id);
+    } else {
+      console.log('No se ha iniciado sesión o no se ha recibido el ID del usuario.');
+      // Puedes manejar este caso de otra forma, como mostrar un mensaje de error.
+    }
   }
 }
 
