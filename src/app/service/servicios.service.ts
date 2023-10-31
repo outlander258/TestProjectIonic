@@ -56,8 +56,8 @@ export class ServiciosService {
 
   getDatos(id_usuario: any): Observable<modeloUsuario[]> {
     return this.http.get<modeloUsuario[]>(this.URL_API + 'Usuario?select=*&id=eq.' + id_usuario, { headers: this.header, responseType: 'json' })
-
-  postClase(id_seccion: string, cod_unico: string): Observable<any> {
+}
+/*   postClase(id_seccion: string, cod_unico: string): Observable<any> {
     const cuerpo = { id_seccion: id_seccion, cod_unico: cod_unico };
     console.log(cuerpo);
     return this.http.post(this.URL_API + 'Clase', cuerpo, { headers: this.header, responseType: 'json' }).pipe(
@@ -77,7 +77,7 @@ export class ServiciosService {
     );
 
   }
-
+ */
 
 
 
