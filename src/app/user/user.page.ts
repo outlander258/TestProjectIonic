@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
-import { ModelDataBase } from '../modelo/ModelDataBase';
 import { Router } from '@angular/router';
 import type { Animation } from '@ionic/angular';
 import { AnimationController } from '@ionic/angular';
@@ -31,10 +30,6 @@ export class UserPage implements OnInit {
   @ViewChild('card', { read: ElementRef }) card!: ElementRef;
 
 
-  //base de datos en duro(arreglo)
-  usuarioActual: ModelDataBase | null = null;
-
-  sesionUser: ModelDataBase[] = [];
   secciones: ModeloSeccion[] = [];
   clases: ModeloClaseIN[] = [];
 

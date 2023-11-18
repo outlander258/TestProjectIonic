@@ -2,7 +2,6 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { ModelDataBase } from '../modelo/ModelDataBase';
 import { ActivatedRoute } from '@angular/router';
 import { ServiciosService } from '../service/servicios.service';
 import { Router } from '@angular/router';
@@ -10,10 +9,8 @@ import { ModeloSeccion } from '../modelo/modeloSeccion';
 import type { Animation } from '@ionic/angular';
 import { AnimationController } from '@ionic/angular';
 import { lastValueFrom } from 'rxjs';
-
 import { ModeloAsistencia } from '../modelo/ModeloAsistencia';
 import { ModeloClaseOUT } from '../modelo/ModeloClaseOUT';
-
 import { modeloUsuario } from '../modelo/modeloUsuario';
 
 
@@ -29,9 +26,7 @@ import { modeloUsuario } from '../modelo/modeloUsuario';
 export class DocentePage implements OnInit {
   isModalOpen = false;
   @ViewChild('card', { read: ElementRef }) card!: ElementRef;
-  // base de datos en duro
-  usuarioActual: ModelDataBase | null = null;
-  sesionUser: ModelDataBase[] = [];
+
   // secciones
   secciones: ModeloSeccion[] = [];
   asistencia: ModeloAsistencia[] = [];
