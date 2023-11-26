@@ -135,6 +135,7 @@ export class LoginPage {
 
 
 
+
   }
 
 
@@ -172,6 +173,7 @@ export class LoginPage {
         this.router.navigate(['/user'], { queryParams });
       } else if (userType === 'DOCENTE') {
         this.router.navigate(['/docente'], { queryParams });
+
       }
   
     } else {
