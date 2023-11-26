@@ -104,5 +104,8 @@ export class ServiciosService {
     return this.http.get<ModeloAsistencia[]>(this.URL_API + 'Asistencia?select=id_alumno(Nombre,Apellido)&id_clase=eq.' + id_clase, { headers: this.header, responseType: 'json' })
   }
 
+  getPreAsistencia(fecha: string):Observable<ModeloClaseIN[]>{
+    return this.http.get<ModeloClaseIN[]>(this.URL_API + 'Clase?select=*&cod_unico=eq.' + fecha, { headers: this.header, responseType: 'json' })
+  }
 
 }

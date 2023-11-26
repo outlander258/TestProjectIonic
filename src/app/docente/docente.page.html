@@ -30,23 +30,21 @@
     </ion-card>
   </ion-col>
 
-
+  <img [src]="srcQr" alt="">
 
   <ion-card>
     <ion-list>
       <ion-item *ngFor="let seccion of secciones">
 
         <ion-label>{{ seccion.id_seccion.Sigla }}</ion-label>
-        <ion-label>{{ seccion.id_seccion.id }}</ion-label>
-        <ion-button class="Generar-QR" fill="outline" (click)="crearClase(seccion.id_seccion.id)">
+        <ion-button id="Generar-QR" fill="outline" (click)="crearClase(seccion.id_seccion.id);setOpen3(true)">
           <ion-icon name="qr-code-sharp"></ion-icon>
         </ion-button>
+
         <ion-button class="Registrar_Asistencia" fill="outline"
           (click)="setOpen(true);mostrarClasesActivas(seccion.id_seccion.id)">
           <ion-icon name="eye-outline"></ion-icon>
         </ion-button>
-
-
       </ion-item>
     </ion-list>
   </ion-card>
@@ -92,29 +90,46 @@
   </ion-modal>
 
 
-    <!-- modal con listado de alumnos -->
-    <ion-modal [isOpen]="isModalOpen2">
+  <!-- modal con listado de alumnos -->
+  <ion-modal [isOpen]="isModalOpen2">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Listado de Alumnos</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen2(false)">Atras</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <p>
+          <ion-list>
+            <ion-item *ngFor="let alumno of asistencia">
+              <ion-label>{{ alumno.id_alumno }}</ion-label>
+            </ion-item>
+          </ion-list>
+        </p>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+
+    <!-- modal con codigo QR -->
+    <ion-modal [isOpen]="isModalOpen3">
       <ng-template>
         <ion-header>
           <ion-toolbar>
-            <ion-title>Listado de Alumnos</ion-title>
+            <ion-title>Codigo QR</ion-title>
             <ion-buttons slot="end">
-              <ion-button (click)="setOpen2(false)">Atras</ion-button>
+              <ion-button (click)="setOpen3(false)">Atras</ion-button>
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
-        <ion-content class="ion-padding">
-          <p>
-            <ion-list>
-              <ion-item *ngFor="let alumno of asistencia">
-                <ion-label>{{ alumno }}</ion-label>
-              </ion-item>
-            </ion-list>
-          </p>
+        <ion-content class="ion-text-center">
+          <img [src]="srcQrMod" alt="">
         </ion-content>
       </ng-template>
     </ion-modal>
-  
 
 
 </ion-content>

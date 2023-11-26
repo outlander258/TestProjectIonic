@@ -13,6 +13,7 @@ import { lastValueFrom } from 'rxjs';
 import { AlertController } from '@ionic/angular';
 import { ModeloClaseIN } from '../modelo/modeloClaseIN';
 import { ModeloAsistencia } from '../modelo/ModeloAsistencia';
+import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 
 
 
@@ -28,6 +29,9 @@ import { ModeloAsistencia } from '../modelo/ModeloAsistencia';
 export class UserPage implements OnInit {
   isModalOpen = false;
   @ViewChild('card', { read: ElementRef }) card!: ElementRef;
+  content_visibility = '';
+
+
 
 
   secciones: ModeloSeccion[] = [];
@@ -40,7 +44,16 @@ export class UserPage implements OnInit {
   datos: modeloUsuario[] = [];
 
 
-  constructor(private router: Router, private route: ActivatedRoute,private alertController: AlertController, private animationCtrl: AnimationController, private servicio: ServiciosService, private alerta: AlertController) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private alertController: AlertController,
+    private animationCtrl: AnimationController,
+    private servicio: ServiciosService,
+    private alerta: AlertController
+  ) { }
+
+
   //zona de animacion
   private animation!: Animation;
 
@@ -69,7 +82,7 @@ export class UserPage implements OnInit {
 
   //fin animacion
   ngOnInit() {
-   
+
     const userStorage = localStorage.getItem('username');
 
     if (userStorage !== 'ALUMNO') {
@@ -80,7 +93,7 @@ export class UserPage implements OnInit {
 
 
 
-    
+
     this.route.queryParams.subscribe(params => {
       this.UserLogin = {
         Username: params['username'],
@@ -109,14 +122,7 @@ export class UserPage implements OnInit {
     this.clases = await lastValueFrom(this.servicio.getClaseActiva(id))
 
   }
-  async mostrarAlertaClaseCreada() {
-    const alert = await this.alertController.create({
-      header: 'Clase Registrada',
-      message: 'Se exitosamente en la clase',
-      buttons: ['OK']
-    });
-    await alert.present();
-  }
+
 
   async cargarAsistencia(id_clase: string, id_alumno: any) {
     const asistencia: ModeloAsistencia = {
@@ -124,10 +130,78 @@ export class UserPage implements OnInit {
       id_alumno: id_alumno
     }
     await lastValueFrom(this.servicio.postCargaAsistencia(asistencia))
-    await this.mostrarAlertaClaseCreada()
+  }
+
+
+  async checkPermission(): Promise<boolean> {
+    try {
+      // check or request permission
+      const status = await BarcodeScanner.checkPermission({ force: true });
+      if (status.granted) {
+        // the user granted permission
+        return true;
+      }
+      return false;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+  }
+
+  async scan() {
+    try {
+      const permission = await this.checkPermission();
+      if (!permission) {
+        return;
+      }
+      await BarcodeScanner.hideBackground();
+      document.querySelector('body')?.classList.add('scanner-active');
+      this.content_visibility = 'hidden';
+      const result = await BarcodeScanner.startScan();
+      console.log(result);
+      BarcodeScanner.showBackground();
+      document.querySelector('body')?.classList.remove('scanner-active');
+      this.content_visibility = '';
+      if (result?.hasContent) {
+        this.clases = await lastValueFrom(this.servicio.getPreAsistencia(result.content))
+        this.mostrarAlertaClaseCreada(this.clases[0].id)
+      }
+    } catch (e) {
+      this.stopScan();
+    }
+  }
+
+  stopScan() {
+    BarcodeScanner.showBackground();
+    BarcodeScanner.stopScan();
+    document.querySelector('body')?.classList.remove('scanner-active');
+    this.content_visibility = '';
+  }
+
+  //alerta para confirmar asistencia
+  async mostrarAlertaClaseCreada(id:string) {
+    const alert = await this.alertController.create({
+      header: 'Clase Encontrada',
+      message: 'Se registrara en la clase',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Alert canceled');
+          },
+        },
+        {
+          text: 'Confirmar',
+          role: 'confirm',
+          handler: () => {
+            
+            this.cargarAsistencia(id, this.UserLogin?.id)
+    
+          },
+        },
+      ]
+    });
+    await alert.present();
   }
 }
-
-
-
-

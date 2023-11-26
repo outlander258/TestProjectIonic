@@ -5,7 +5,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" [style.visibility]="content_visibility">
   <div class="container-fluid Imagen_fondo_alumno">
     <img src="../../assets/img/Alumnos.jpg" alt="Fondo Estudiantes">
   </div>
@@ -64,13 +64,9 @@
               <ion-label>{{ clase.cod_unico }}</ion-label>
               <ion-label>{{ clase.id }}</ion-label>
               <ion-button  class="Registrar_Asistencia" fill="outline" (click)="cargarAsistencia(clase.id,this.UserLogin?.id)">Registrar
-
-
                 <ion-icon name="checkbox-outline"></ion-icon>
               </ion-button>
             </ion-item>
-
-
           </ion-list>
         </p>
       </ion-content>
@@ -79,12 +75,10 @@
 
 
 
-
-
-
+  <!-- panel inferior vista -->
   <ion-col class="columna-botones">
     <ion-row>
-      <ion-button color="light" class="Escanear-QR" fill="outline">
+      <ion-button color="light" class="Escanear-QR" fill="outline"  (click)="scan()">
         <span style="margin-right: 5px;">
           ESCANEAR QR
         </span>
