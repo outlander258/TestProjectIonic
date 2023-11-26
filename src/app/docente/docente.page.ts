@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, IonicSafeString } from '@ionic/angular';
 import { ModelDataBase } from '../modelo/ModelDataBase';
 import { ActivatedRoute } from '@angular/router';
 import { ServiciosService } from '../service/servicios.service';
@@ -28,8 +28,14 @@ import { ModalController } from '@ionic/angular';
   imports: [IonicModule, CommonModule, FormsModule]
 })
 export class DocentePage implements OnInit {
+  //Alerta con QR
+  alertButtons= ['Aceptar']
+  srcQr="https://api.qrserver.com/v1/create-qr-code/?data="
+  srcQrMod=""
+
   isModalOpen = false;
   isModalOpen2 = false;
+  isModalOpen3 = false;
   @ViewChild('card', { read: ElementRef }) card!: ElementRef;
   // base de datos en duro
   usuarioActual: ModelDataBase | null = null;
@@ -88,6 +94,10 @@ export class DocentePage implements OnInit {
     this.asistencia = await lastValueFrom(this.servicio.getConsulaAsistencia("5"));
   }
 
+  async setOpen3(isOpen: boolean) {
+    this.isModalOpen3 = isOpen;
+  }
+
 
   ngOnInit() {
 
@@ -137,15 +147,16 @@ export class DocentePage implements OnInit {
 
   }
 
-
-  async mostrarAlertaClaseCreada(fecha: string) {
+/* ******** Alerta con codigo QR (no funca) *************
+    async mostrarAlertaClaseCreada(fecha: string) {
     const alert = await this.alertController.create({
       header: 'Clase creada',
-      message: 'Se creo la clase exitosamente con fecha: '+fecha,
+      message: new IonicSafeString(`<img src="https://api.qrserver.com/v1/create-qr-code/?data=123" alt="">`),
+                    //'<img src="${this.srcQr+fecha}" alt="">'
       buttons: ['OK']
     });
     await alert.present();
-  }
+  } */ 
 
   async crearClase(id_seccion: string) {
 
@@ -158,7 +169,8 @@ export class DocentePage implements OnInit {
       cod_unico: soloFecha
     }
     const response =await lastValueFrom(this.servicio.postClase(clase))
-    await this.mostrarAlertaClaseCreada(soloFecha);
+    //await this.mostrarAlertaClaseCreada(soloFecha);
+    this.srcQrMod= this.srcQr+soloFecha;
   }
 
     
