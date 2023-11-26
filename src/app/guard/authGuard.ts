@@ -1,8 +1,7 @@
 import { inject } from "@angular/core";
 import { CanActivateFn} from "@angular/router";
-import { Observable } from "rxjs";
-import { ServiciosService } from "../service/servicios.service";
 import { Router } from "@angular/router";
+import { Preferences } from '@capacitor/preferences';
 
 
 
@@ -10,9 +9,6 @@ import { Router } from "@angular/router";
 
 export const demonGuard : CanActivateFn = () =>{
     const userStorage =localStorage.getItem('username');
-
-    let userExist$ : Observable<boolean>
-    const authService = inject(ServiciosService)
     const redirect = inject(Router)
    
   

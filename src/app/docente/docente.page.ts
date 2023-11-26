@@ -37,9 +37,7 @@ export class DocentePage implements OnInit {
   isModalOpen2 = false;
   isModalOpen3 = false;
   @ViewChild('card', { read: ElementRef }) card!: ElementRef;
-  // base de datos en duro
-  usuarioActual: ModelDataBase | null = null;
-  sesionUser: ModelDataBase[] = [];
+
   // secciones
   secciones: ModeloSeccion[] = [];
   asistencia: ModeloAsistencia[] = [];
