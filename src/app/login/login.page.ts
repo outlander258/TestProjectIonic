@@ -1,20 +1,16 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import type { Animation } from '@ionic/angular';
-import { AnimationController, IonCard } from '@ionic/angular';
+import { AnimationController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
-import { last, lastValueFrom } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { ServiciosService } from '../service/servicios.service';
 import { modeloUsuario } from '../modelo/modeloUsuario';
 import { ModelLog } from '../modelo/ModelLog';
-import { Preferences } from '@capacitor/preferences';
-
-
-
 
 
 
